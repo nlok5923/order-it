@@ -1,6 +1,7 @@
 import React from "react"
 import { Menu, Dropdown, Form } from "semantic-ui-react"
 import { useHistory } from "react-router"
+import { Link } from "react-router-dom"
 
 const Navbar = () => {
 
@@ -19,11 +20,6 @@ const Navbar = () => {
     }
         
     }
-
-    const options = [{
-        key:1 , text :"User login" , value: "ulogin"
-    },{ key:2, text: "Admin login ", value: "alogin"} ]
-
     
     const optionRegister = [{
         key:1 , text :"User register" , value: "uregister"
@@ -33,21 +29,14 @@ const Navbar = () => {
         <Menu>
         <Menu.Item header>Order it </Menu.Item>
         <Menu.Item>
-        <Dropdown
-              floated="right"
-              clearable
-              options={options}
-              name="category"
-              selection
-              onChange={(e, data) => handleCategorySelection(e, data)}
-            />
+            <Link to="/user/login"> Login / Register </Link>
             </Menu.Item>
             <Menu.Item>
         <Dropdown
               floated="right"
               clearable
+              placeholder="hotel login"
               options={optionRegister}
-              value={"data"}
               name="login"
               selection
               onChange={(e, data) => handleCategorySelection(e, data)}
