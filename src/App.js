@@ -6,6 +6,7 @@ import LandingPage from "./Pages/index";
 import Navbar from "./Components/Navigation/NavGeneral/NavGeneral";
 import NavbarAdminLogged from "./Components/Navigation/NavAdminLogged/NavAdminLogged";
 import NavbarUserLogged from "./Components/Navigation/NavUserLogged/NavUserLogged";
+import DishPage from "./Components/Page/Page"
 import 'semantic-ui-css/semantic.min.css'
 import UserProvider from './Providers/UserProvider';
 
@@ -21,6 +22,7 @@ const App = () => {
               <Route exact path="/user/login" component={UserLogin} />
               <Route exact path="/admin/login" component={AdminLogin} />
               <Route exact path="/admin/details" component={AdminDetailsForm} />
+              <Route exact path="/dish" component={DishPage} />
               <Route exact path="/" component={LandingPage} />
             </Switch>
         </Router>
