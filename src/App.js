@@ -5,19 +5,22 @@ import AdminDetailsForm from "./Pages/Admin/Form/index"
 import LandingPage from "./Pages/index";
 import Navbar from "./Components/Navigation/index";
 import 'semantic-ui-css/semantic.min.css'
+import UserProvider from './Providers/UserProvider';
 
 const App = () => {
   return (
     <div>
+      <UserProvider>
         <Router>
-      <Navbar />
+          <Navbar />
             <Switch>
               <Route exact path="/user/login" component={UserLogin} />
               <Route exact path="/admin/login" component={AdminLogin} />
               <Route exact path="/admin/details" component={AdminDetailsForm} />
               <Route exact path="/" component={LandingPage} />
             </Switch>
-        </Router> 
+        </Router>
+      </UserProvider>
     </div>
   );
 };

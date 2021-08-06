@@ -14,3 +14,16 @@ export const initializeApp = () => {
         });
     }
 }
+
+export const signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("Sign out successfully");
+      })
+      .catch((error) => {
+        console.log("Error Occured While signing out!!");
+        console.log(error.message);
+      });
+};
