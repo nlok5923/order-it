@@ -1,17 +1,14 @@
   
 import React from 'react'
-import { Grid, Header, Image, Message, Container, Segment } from 'semantic-ui-react'
+import { Grid, Header, Image, Message, Container, Segment ,  Form, Button} from 'semantic-ui-react'
 import "./Login.scss"
 
 const LoginPage = () => (
-    <div className="login-display">
-    <Grid celled="internally">
-        <Grid.Row>
-            <Grid.Column>
-                <Segment>
-                <Container textAlign="center">
+<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+<Grid.Column style={{ maxWidth: 450 }}>
+  <Container textAlign="center">
                     <Header as='h2' color='teal' textAlign='center'>
-                        Login with google 
+                        Welcome user let's Login with google 
                     </Header>
       <Container textAlign="center">
           <Segment>
@@ -19,11 +16,12 @@ const LoginPage = () => (
           </Segment>
       </Container>
     </Container>
-    </Segment>
-    </Grid.Column>
-    </Grid.Row>
-    </Grid>
-    </div>
-)
+  <Message>
+      Login and enjoy our service
+  </Message>
+</Grid.Column>
+</Grid>
+ )
+
 
 export default LoginPage;
