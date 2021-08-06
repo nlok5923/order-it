@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import 'semantic-ui-css/components/reset.min.css';
+import 'semantic-ui-css/components/site.min.css';
+import 'semantic-ui-css/components/container.min.css';
+import 'semantic-ui-css/components/icon.min.css';
+import 'semantic-ui-css/components/message.min.css';
+import 'semantic-ui-css/components/header.min.css';
+import 'react-semantic-toasts/styles/react-semantic-alert.css';
+import UserLogin from "./Pages/User/Login/index"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Router>
+            <Switch>
+              <Route exact path="/user/login" component={UserLogin} />
+            </Switch>
+        </Router> 
     </div>
   );
-}
+};
 
 export default App;
