@@ -1,9 +1,15 @@
 import React from "react"
-import { Menu, Dropdown, Form, Button } from "semantic-ui-react"
+import { Menu, Dropdown, Form, Button, Icon } from "semantic-ui-react"
 import { useHistory } from "react-router"
 import { Link } from "react-router-dom"
 
 const Navbar = () => {
+
+    const trigger = (
+        <span>
+          <Icon name='user' /> Hello, User
+        </span>
+      )
 
     const history = useHistory();
     const handleCategorySelection = (e, data) => {
@@ -39,16 +45,7 @@ const Navbar = () => {
             </Menu.Item>
 
             <Menu.Item position="right">
-            <Button.Group color='teal'>
-    <Button>username</Button>
-    <Dropdown
-      className='button icon'
-      floating
-      options={userOptions}
-      trigger={<></>}
-      onChange={(e, data) => handleCategorySelection(e, data)}
-    />
-  </Button.Group>
+            <Dropdown trigger={trigger} options={userOptions} onChange={(e, data) => handleCategorySelection(e, data)} />
             </Menu.Item>
 
       </Menu>
