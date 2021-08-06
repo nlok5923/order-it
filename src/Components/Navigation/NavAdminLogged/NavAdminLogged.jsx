@@ -2,6 +2,7 @@ import React from "react"
 import { Menu, Dropdown, Form, Button, Icon } from "semantic-ui-react"
 import { useHistory } from "react-router"
 import { Link } from "react-router-dom"
+import {signOut} from "../../../Services/Utils"
 
 const Navbar = () => {
 
@@ -14,7 +15,7 @@ const Navbar = () => {
     const history = useHistory();
     const handleCategorySelection = (e, data) => {
         switch(data.value){
-        case "ulogin": history.push("/user/login")
+        case "logout": signOut();
             break;
         case "uregister": history.push("/user/login")
             break;
@@ -28,8 +29,8 @@ const Navbar = () => {
     }
     
     const restaurantOptions = [
-        {key:1 , text: "Log out", value: "logout"},
-        {key:2, text: "orders", value:"orders"}
+        {key:2, text: "orders", value:"orders"},
+        {key:1 , text: "Log out", value: "logout"}
     ]
 
     return(

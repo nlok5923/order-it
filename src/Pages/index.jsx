@@ -1,4 +1,3 @@
-import { signOut } from '../Services/Utils'
 import Card from "../Components/Cards/index"
 import { Container, Grid } from 'semantic-ui-react'
 
@@ -7,43 +6,42 @@ const dishes = [
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10%"
+        discount: "10% off"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10%"
+        discount: "10% off"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10%"
+        discount: "10% off"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10%"
+        discount: "10% off"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10%"
+        discount: "10% off"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10%"
+        discount: "10% off"
     }
 ]
 const Home = () =>{
     return(
         <div>
-            <button onClick={signOut}>Logout</button>
             <Container>
             <Grid stackable columns={4}>
               {dishes
