@@ -1,25 +1,27 @@
   
 import React from 'react'
-import { Grid, Header, Image, Message, Container, Segment } from 'semantic-ui-react'
+import { Grid, Header, Image, Message, Container, Segment ,  Form, Button} from 'semantic-ui-react'
 import "./Login.scss"
 
 const LoginPage = () => (
-    <Grid celled="internally">
-        <Grid.Row>
-            <Grid.Column>
-                <Container textAlign="center">
+<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+<Grid.Column style={{ maxWidth: 450 }}>
+  <Container textAlign="center">
                     <Header as='h2' color='teal' textAlign='center'>
-                        Login with google 
+                      Welcome Admin let's Login with google 
                     </Header>
-                 <Container textAlign="center">
+      <Container textAlign="center">
           <Segment>
               <img className="google-login" src='/images/google-logo.jpg' /> 
           </Segment>
       </Container>
     </Container>
-    </Grid.Column>
-    </Grid.Row>
-    </Grid>
-)
+  <Message>
+      Login and enjoy our service
+  </Message>
+</Grid.Column>
+</Grid>
+ )
+
 
 export default LoginPage;
