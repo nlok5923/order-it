@@ -5,8 +5,8 @@ import 'semantic-ui-css/components/container.min.css';
 import 'semantic-ui-css/components/icon.min.css';
 import 'semantic-ui-css/components/message.min.css';
 import 'semantic-ui-css/components/header.min.css';
-import 'react-semantic-toasts/styles/react-semantic-alert.css';
 import UserLogin from "./Pages/User/Login/index"
+import AdminLogin from "./Pages/Admin/Login/index"
 
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
         <Router>
             <Switch>
               <Route exact path="/user/login" component={UserLogin} />
+              <Route exact path="/admin/login" component={AdminLogin} />
             </Switch>
         </Router> 
     </div>
