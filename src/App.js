@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UserLogin from "./Pages/User/Login/index"
 import AdminLogin from "./Pages/Admin/Login/index"
+import LandingPage from "./Pages/index";
 import 'semantic-ui-css/semantic.min.css'
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
             <Switch>
               <Route exact path="/user/login" component={UserLogin} />
               <Route exact path="/admin/login" component={AdminLogin} />
+              <Route exact path="/" component={LandingPage} />
             </Switch>
         </Router> 
     </div>

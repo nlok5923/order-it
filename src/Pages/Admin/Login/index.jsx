@@ -1,6 +1,6 @@
   
 import React from 'react'
-import { Grid, Header, Image, Message, Container, Segment ,  Form, Button} from 'semantic-ui-react'
+import { Grid, Header, Message, Container, Segment } from 'semantic-ui-react'
 import "./Login.scss"
 
 const LoginPage = () => (
@@ -8,7 +8,7 @@ const LoginPage = () => (
 <Grid.Column style={{ maxWidth: 450 }}>
   <Container textAlign="center">
                     <Header as='h2' color='teal' textAlign='center'>
-                      Welcome Admin let's Login with google 
+                      Welcome Admin let's get authenticated
                     </Header>
       <Container textAlign="center">
           <Segment>
