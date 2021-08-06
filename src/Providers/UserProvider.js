@@ -15,10 +15,10 @@ const UserProvider = (props) => {
   useEffect(() => {
     auth.onAuthStateChanged(async (person) => {
       if (person) {
-        const { displayName, email } = person;
+        const { displayName, email,uid } = person;
         console.log("user is logged in");
         setInfo({
-          user: { displayName, email },
+          user: { displayName, email,uid },
           isLoading: false,
         });
       } else {

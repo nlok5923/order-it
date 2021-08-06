@@ -1,6 +1,10 @@
 import dotenv from 'dotenv'
 import firebase from "firebase/app";
+import '@firebase/database'
+import "firebase/firestore";
 dotenv.config();
+
+const db = firebase.firestore();
 
 export const initializeApp = () => {
     if (!firebase.apps.length) {
@@ -27,3 +31,13 @@ export const signOut = () => {
         console.log(error.message);
       });
 };
+
+export const isUser = async(id)=>{
+    const userRef = await db.collection("users").doc(id).get();
+    return userRef.exists;
+}
+
+export const isRestaurent = async(id)=>{
+    const restaurentRef = await db.collection("restaurants").doc(id).get();
+    return restaurentRef.exists;
+}
