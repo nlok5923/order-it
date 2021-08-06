@@ -1,4 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext, useState } from 'react';
+import { UserContext } from '../../../Providers/UserProvider'
+import { Redirect } from "react-router-dom";
+import { isUser, isRestaurent } from '../../../Services/Utils'
+import { saveRestaurantDetail } from '../../../Services/Restaurent/RestaurentAuth';
+
 import {
   Button,
   Form,
@@ -12,14 +17,14 @@ import "semantic-ui-css/semantic.min.css";
 
 const SignupForm = () => {
   const labelStyle = { fontSize: "15px" };
-
+  const [loadingBtn,setLoadingBtn] = useState(false);
   const formElement = [
-      { name: "name", type:"text"},
-      { name:"country", type: "number"},
-      {name:"city" , type:"text"},
-      { name: "pin" , type: "number"},
-      {name: "phone", type:"number"},
-      {name:"address", type:"text"}
+    { name: "restaurantName", type: "text" },
+    { name: "country", type: "text" },
+    { name: "city", type: "text" },
+    { name: "pincode", type: "number" },
+    { name: "phone", type: "number" },
+    { name: "address", type: "text" }
   ]
 
   const renderFormElements = () => {
@@ -32,7 +37,8 @@ const SignupForm = () => {
           type={ele.type}
           name={ele.name}
           placeholder={ele.placeholder}
-          onChange ={(e) => setInfo(e)}
+          onChange={(e) => setInfo(e)}
+          required
         />
       </Form.Field>
     ));
@@ -40,13 +46,19 @@ const SignupForm = () => {
 
   const [errMessage, seterrMessage] = useState("");
   const [adminInfo, setAdminInfo] = useState({
-    name: "",
+    restaurantName: "",
     country: "",
     city: "",
-    pin: "",
+    pincode: "",
     address: "",
-    phone: ""
+    phone: "",
+    name:"",
+    email:"",
+    id:""
   });
+  const info = useContext(UserContext);
+  const { user, isLoading } = info;
+  const [redirect, setredirect] = useState(null);
 
   const setInfo = (e) => {
     setAdminInfo({
@@ -54,24 +66,63 @@ const SignupForm = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleSubmit = async()=>{
+    setLoadingBtn(true);
+    await saveRestaurantDetail(adminInfo);
+    setLoadingBtn(false);
+    setredirect("/restaurant");
+  }
+
+  const handleUser = async()=>{
+    let isuser = await isUser(user.uid);
+    if(isuser){
+      setredirect("/");
+      return;
+    }
+    let isrestaurant = await isRestaurent(user.uid);
+    if(isrestaurant){
+      setredirect("/restaurant");
+    }else{
+      setAdminInfo({
+        ...adminInfo,
+        name:user.displayName,
+        email:user.email,
+        id:user.uid
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (user && !isLoading) {
+        handleUser();
+    }else if(!user && !isLoading){
+      setredirect("/admin/login")
+    }
+  }, [user, isLoading]);
+
+  if (redirect) {
+    return <Redirect to={redirect} />;
+  }
+
   return (
     <Container>
-        <div>
-          <Segment>
-            <Header as="h2" icon textAlign="center">
-              <Icon name="address book outline" circular />
-              <Header.Content>Please fill details </Header.Content>
-            </Header>
-            <Form error={!!errMessage}>
-              {renderFormElements()}
-              <Button primary type="submit">
-                  <Icon name="save" />
-                Register
-              </Button>
-              <Message error header="Oops!!" content={errMessage} />
-            </Form>
-          </Segment>
-        </div>
+      <div>
+        <Segment>
+          <Header as="h2" icon textAlign="center">
+            <Icon name="address book outline" circular />
+            <Header.Content>Complete Your Profile By Filling Below Details </Header.Content>
+          </Header>
+          <Form error={!!errMessage}>
+            {renderFormElements()}
+            <Button primary type="submit" onClick={handleSubmit}>
+              <Icon name="save" />
+              {loadingBtn?"Loading...":"Register"}
+            </Button>
+            <Message error header="Oops!!" content={errMessage} />
+          </Form>
+        </Segment>
+      </div>
     </Container>
   );
 };

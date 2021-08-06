@@ -14,14 +14,8 @@ export const signInForRestaurant = () => {
   auth
     .signInWithPopup(provider)
     .then((result) => {
-      if(result.additionalUserInfo.isNewUser){
-        user = result.user;
-        const {email,uid,displayName} = user;
-        db.collection("restaurants").doc(uid).set({
-          displayName,
-          email
-        })
-      }
+      user = result.user;
+      console.log(user.displayName)
     })
     .catch((error) => {
       // Handle Errors here.
@@ -35,17 +29,19 @@ export const signInForRestaurant = () => {
     });
 };
 
-export const saveRestaurentDetail = async(info)=>{
+export const saveRestaurantDetail = async(info)=>{
     try {
-        if(!info.id){
+        if(info.id===""){
             throw Error("Id Not Provided");
         }
-        await db.collection("restaurants").doc(info.id).update({
-            RestaurentName:info.name,
+        await db.collection("restaurants").doc(info.id).set({
+            name:info.name,
+            email:info.email,
+            RestaurantName:info.restaurantName,
             country:info.country,
             city:info.city,
             pincode:info.pincode,
-            number:info.number,
+            number:info.phone,
             address:info.address
         })
         return;

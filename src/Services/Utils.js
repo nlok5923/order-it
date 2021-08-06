@@ -4,8 +4,6 @@ import '@firebase/database'
 import "firebase/firestore";
 dotenv.config();
 
-const db = firebase.firestore();
-
 export const initializeApp = () => {
     if (!firebase.apps.length) {
         firebase.initializeApp({
@@ -19,7 +17,11 @@ export const initializeApp = () => {
     }
 }
 
+initializeApp();
+const db = firebase.firestore();
+
 export const signOut = () => {
+    initializeApp();
     firebase
       .auth()
       .signOut()
