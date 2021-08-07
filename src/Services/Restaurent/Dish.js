@@ -52,3 +52,29 @@ export const addDish = async(info)=>{
         throw error;
     }
 }
+
+export const editDish = async(info)=>{
+    try {
+        const {dishName,price,discount,description,image,uid} = info;
+        let fileName = getFileName();
+        await handleUpload(image,fileName,"dish");
+        let searchKeyWord = new Set();
+        dishName.trim();
+        description.trim();
+        searchKeyWord = giveSearchWords(dishName,searchKeyWord);
+        searchKeyWord = giveSearchWords(description,searchKeyWord);
+        let searchWord = Array.from(searchKeyWord).sort();
+        await db.collection("restaurants").doc(uid).collection("dishes").add({
+            dishName,
+            price,
+            discount,
+            description,
+            fileName,
+            searchWord
+        })
+        return;
+    } catch (error) {
+        console.log(error.message);
+        throw error;
+    }
+}

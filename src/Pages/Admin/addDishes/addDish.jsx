@@ -110,8 +110,6 @@ const AddDish = () => {
                 ...dishInfo,
                 image:e.target.files[0]
             })
-            // setImages([...images, { url: e.target.files[0], id: count }]);
-            // setCount(count + 1);
             document.getElementById("upload-img").value = "";
         }
     }
