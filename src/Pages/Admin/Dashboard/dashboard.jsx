@@ -54,7 +54,7 @@ const Dashboard = () => {
                 <NavLink activeClassName="current" to="/restaurant/add-dish"> 
                 <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
                 </NavLink>
-                {restaurantDishes.map((data, index) => <DishCard isRestaurant={true} info={data} />)}
+                {restaurantDishes.map((data, index) => <DishCard isRestaurant={true} info={data} uid={user.uid} />)}
             </Container>
         </div>
     );

@@ -17,6 +17,15 @@ import "semantic-ui-css/semantic.min.css";
 import { isUser, isRestaurent } from '../../../Services/Utils'
 import "./Form.scss";
 
+const properties = {
+  duration: 3000,
+  transitionDuration: 500,
+  infinite: true,
+  indicators: true,
+  arrows: false,
+  pauseOnHover: true,
+};
+
 const SignupForm = () => {
   const history = useHistory();
   const labelStyle = { fontSize: "15px" };
@@ -113,7 +122,7 @@ const SignupForm = () => {
   const renderImages = () => {
     return (
       <div className="slide-container">
-        {(images.length > 0) && <Slide>
+        {(images.length > 0) && <Slide {...properties}>
           {
             images.map((image, index) => (
               <div className="each-slide" key={index}>
