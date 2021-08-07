@@ -82,7 +82,7 @@ const Dashboard = () => {
         if (!isrestaurant) {
             setredirect("/restaurant/details");
         } else {
-            getRestaurantDishes(user.uid).then(data => { console.log(data); setrestaurantDishes(data) });
+            getRestaurantDishes(user.uid).then(data => setrestaurantDishes(data));
             console.log(restaurantDishes)
         }
         setLoading(false);
@@ -106,8 +106,8 @@ const Dashboard = () => {
             <Container>
             <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
             {/* {dishes.map((data, index) => <DishCard info = {data} isRestaurant={true} />)} */}
-            <h1></h1>
-            {/* {restaurantDishes.dishInfo.map((data, index) => <DishCard info={data} />)} */}
+            <h1>{restaurantDishes.length}</h1>
+            {restaurantDishes.map((data, index) => <DishCard info={data.dishInfo} />)}
             </Container>
         </div>
     );

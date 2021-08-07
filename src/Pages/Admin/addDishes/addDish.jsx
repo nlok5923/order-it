@@ -147,7 +147,10 @@ const AddDish = () => {
                                         <img src={URL.createObjectURL(dishInfo.image)} alt="food" className="food-slide-image" />
                                     }
                                 </div>
-                                <Button color="red" type="submit" onClick={handleSubmit}>
+                                <Button 
+                                color="red" 
+                                style={{ marginTop:"2%" }}
+                                type="submit" onClick={handleSubmit}>
                                     {loadingBtn ? "Adding..." : "Add"}
                                 </Button>
                                 <Message error header="Oops!!" content={errMessage} />

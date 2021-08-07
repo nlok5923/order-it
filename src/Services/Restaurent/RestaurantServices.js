@@ -33,8 +33,9 @@ export const getRestaurants = async () => {
 
 
  export const getRestaurantDishes = async (id) => {
+    let data = [];
+
     try {
-        let data = [];
         let ref = await db.collection("restaurants").doc(id).collection("dishes").get();  
         ref.forEach(async (doc) => {
             let imageUrl = await getImageUrl("dish", doc.data().fileName);
@@ -45,7 +46,6 @@ export const getRestaurants = async () => {
                 description: doc.data().description,
                 firebaseImage: imageUrl
             }
-            console.log(dishInfo + " "+ doc.id);
             data.push({
                 id: doc.id,
                 dishInfo
