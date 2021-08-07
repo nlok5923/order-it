@@ -62,17 +62,20 @@ const Navbar = () => {
           </Form>
         </Menu.Item>
 
-        <Menu.Item position="right" style={{ width: "70%" }}>
+        <Menu.Item position="left">
           <Form>
             <Form.Field>
               <input
                 className="search-bar-width"
-                style={{ width: "60vw" }}
+                // style={{ width: "60vw" }}
                 type="text"
                 placeholder="Enter food name/restaurant name"
               />
             </Form.Field>
           </Form>
+        </Menu.Item>
+        <Menu.Item>
+          <Button>Search</Button>
         </Menu.Item>
       </Menu>
     </div>

@@ -6,6 +6,7 @@ import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
 import DishCard from "../Cards/DishCard"
 import { useParams } from "react-router";
 import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
+import Loader from '../Loader/index'
 
 const properties = {
   duration: 3000,
@@ -16,52 +17,60 @@ const properties = {
   pauseOnHover: true,
 };
 
-const images = ["images/pizza.jpg","images/pizza.jpg","images/pizza.jpg","images/pizza.jpg","images/pizza.jpg"]
+const images = ["images/pizza.jpg", "images/pizza.jpg", "images/pizza.jpg", "images/pizza.jpg", "images/pizza.jpg"]
 
 const Page = () => {
 
+  const [loading, setLoading] = useState(true);
   const [dishes, setDishes] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState([]);
   const [restaurantImages, setRestaurantImages] = useState([]);
   const { id } = useParams();
-  const fetchImages = async () => {
+  
+  const fetchData = async()=>{
+    let data = await getRestaurantDishes(id) 
+    setDishes(data);
+    data = await getRestaurantInformation(id)
+    setRestaurantInfo(data);
+    console.log(restaurantInfo);
     let images = await getRestaurantImagesUrl(id)
-    console.log(images);
     setRestaurantImages(images);
+    setLoading(false);
   }
+
   useEffect(() => {
-    fetchImages();
-    getRestaurantDishes(id).then(data => setDishes(data));
-    getRestaurantInformation(id).then(data => setRestaurantInfo(data));
-  },[])
+    fetchData();
+  }, [])
 
   return (
     <>
+      {loading && <Loader />}
+      {!loading &&
         <Container>
-    <Segment>
-      <div className="slide-container">
-        <Slide {...properties}>
-          {images.map((data, index)=>{
-            return(
-             <div className="each-slide">
-             <img src={data.url} alt="food" className="food-slider-image" />
-         </div>)
-          })}
-        </Slide>
-      </div>
+          <Segment>
+            <div className="slide-container">
+              <Slide {...properties}>
+                {images.map((data, index) => {
+                  return (
+                    <div className="each-slide">
+                      <img src={data} alt="food" className="food-slider-image" />
+                    </div>)
+                })}
+              </Slide>
+            </div>
 
-          <Header as="h1">
-            {restaurantInfo.RestaurantName}||{restaurantImages.length}
-            <Header.Subheader>
-           {restaurantInfo.country} | {restaurantInfo.city} | {restaurantInfo.address} 
-            </Header.Subheader>
+            <Header as="h1">
+              {restaurantInfo.RestaurantName}
+              <Header.Subheader>
+                {restaurantInfo.country} | {restaurantInfo.city} | {restaurantInfo.address}
+              </Header.Subheader>
             </Header>
             <Divider />
-          <Header as="h2">Recommended</Header>
-          {dishes.map((data, index) => <DishCard info = {data}/>)}
-        </Segment>
-      </Container>
-
+            <Header as="h2">Recommended</Header>
+            {dishes.map((data, index) => <DishCard info={data} />)}
+          </Segment>
+        </Container>
+      }
     </>
   )
 }
