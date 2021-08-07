@@ -32,7 +32,8 @@ const Navbar = () => {
     },{ key:2, text: "Restaurant Register", value:"rregister"}]
 
     return(
-        <Menu>
+        <div className="menu">
+        <Menu className="menu">
         <Menu.Item header>Order it </Menu.Item>
         <Menu.Item>
             <Link to="/user/login"> Login / Register </Link>
@@ -59,6 +60,7 @@ const Navbar = () => {
 
 
       </Menu>
+      </div>
     )
 }
 

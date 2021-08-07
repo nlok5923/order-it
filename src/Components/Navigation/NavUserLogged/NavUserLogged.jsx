@@ -35,6 +35,7 @@ const Navbar = () => {
     ]
 
     return (
+        <div className="menu">
         <Menu>
             <Menu.Item header>Order it </Menu.Item>
             <Menu.Item>
@@ -50,6 +51,7 @@ const Navbar = () => {
             </Menu.Item>
 
         </Menu>
+        </div>
     )
 }
 

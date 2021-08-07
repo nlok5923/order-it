@@ -5,6 +5,7 @@ import NavbarAdminLogged from "../NavAdminLogged/NavAdminLogged";
 import NavbarUserLogged from "../NavUserLogged/NavUserLogged";
 import Loader from '../../Loader/index';
 import { UserContext } from "../../../Providers/UserProvider";
+import "./Navbar.scss"
 
 const Navbar = ()=>{
     const [loading,setLoading] = useState(true);
