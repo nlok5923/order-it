@@ -5,7 +5,7 @@ import "./Page.scss"
 import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
 import DishCard from "../Cards/DishCard"
 import { useParams } from "react-router";
-import { getRestaurantDishes, getRestaurantInformation } from "../../Services/Restaurent/RestaurantServices"
+import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
 
 const properties = {
   duration: 3000,
@@ -22,12 +22,17 @@ const Page = () => {
 
   const [dishes, setDishes] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState([]);
+  const [restaurantImages, setRestaurantImages] = useState([]);
   const { id } = useParams();
-
+  const fetchImages = async () => {
+    let images = await getRestaurantImagesUrl(id)
+    console.log(images);
+    setRestaurantImages(images);
+  }
   useEffect(() => {
+    fetchImages();
     getRestaurantDishes(id).then(data => setDishes(data));
     getRestaurantInformation(id).then(data => setRestaurantInfo(data));
-    console.log(restaurantInfo);
   },[])
 
   return (
@@ -36,17 +41,17 @@ const Page = () => {
     <Segment>
       <div className="slide-container">
         <Slide {...properties}>
-          {images.map((data, index)=>{
+          {restaurantImages.map((data, index)=>{
             return(
              <div className="each-slide">
-             <img src={data} alt="food" className="food-slider-image" />
+             <img src={data.url} alt="food" className="food-slider-image" />
          </div>)
           })}
         </Slide>
       </div>
 
           <Header as="h1">
-            {restaurantInfo.RestaurantName}
+            {restaurantInfo.RestaurantName}||{restaurantImages.length}
             <Header.Subheader>
            {restaurantInfo.country} | {restaurantInfo.city} | {restaurantInfo.address} 
             </Header.Subheader>

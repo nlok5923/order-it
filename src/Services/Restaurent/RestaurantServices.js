@@ -86,8 +86,24 @@ export const getRestaurants = async () => {
 }
 
 export const getRestaurantImagesUrl = async (id) => {
+
     try {
+    let imageLocation = [];
         let imageUrl = [];
+        await db.collection("restaurants").doc(id).get().then(data => imageUrl = data.data().fileNames);
+        if(imageUrl !== undefined) {
+            if(imageUrl.length > 0) {
+                imageUrl.map(async name => {
+                    // let imageURL = await getImageUrl("restaurants", name);
+                   let imageURL = new Promise((resolve, reject) => {
+                          return resolve(getImageUrl("restaurants", name));
+                    }).then(result => {
+                        imageLocation.push({ url: result });
+                    })
+                })
+            }
+        }
+    return imageLocation;
     } catch(err){
         console.log(err.message);
         return err.message;
