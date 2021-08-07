@@ -24,8 +24,8 @@ const OrderCard = (props) => {
             </Header>
             {props.isRestaurant ? (
               <div>
-                <Button icon="edit" basic floated="left" color="red" />
-                <Button icon="eye" basic floated="left" color="green" />
+                <Button icon="edit" basic floated="left" color="green" />
+                <Button icon="trash" basic floated="left" color="red" />
               </div>
             ) : (
               <Button
