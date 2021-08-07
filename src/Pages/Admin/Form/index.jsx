@@ -1,7 +1,9 @@
 import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../../Providers/UserProvider'
-import { Redirect,useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
+import 'react-slideshow-image/dist/styles.css'
 import { saveRestaurantDetail } from '../../../Services/Restaurent/RestaurentAuth';
+import { Slide } from 'react-slideshow-image';
 import {
   Button,
   Form,
@@ -12,7 +14,7 @@ import {
   Icon,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import {isUser,isRestaurent} from '../../../Services/Utils'
+import { isUser, isRestaurent } from '../../../Services/Utils'
 import "./Form.scss";
 
 const SignupForm = () => {
@@ -68,6 +70,8 @@ const SignupForm = () => {
   const info = useContext(UserContext);
   const { user, isLoading } = info;
   const [redirect, setredirect] = useState(null);
+  const [images, setImages] = useState([]);
+  let [count, setCount] = useState(0);
 
   const setInfo = (e) => {
     setAdminInfo({
@@ -76,21 +80,25 @@ const SignupForm = () => {
     });
   };
 
+  const deleteImg = (id) => {
+    setImages(images.filter((img) => img.id !== id));
+  }
+
   const handleSubmit = async () => {
     setLoadingBtn(true);
-    await saveRestaurantDetail(adminInfo);
+    await saveRestaurantDetail(adminInfo,images);
     setLoadingBtn(false);
     setredirect("/restaurant")
   }
 
-  const handleUser = async()=>{
+  const handleUser = async () => {
     let isuser = await isUser(user.uid);
-    if(isuser){
+    if (isuser) {
       setredirect("/");
       return;
     }
     let isrestaurant = await isRestaurent(user.uid);
-    if(isrestaurant){
+    if (isrestaurant) {
       setredirect("/restaurant");
     } else {
       setAdminInfo({
@@ -101,6 +109,23 @@ const SignupForm = () => {
       });
     }
   };
+
+  const renderImages = () => {
+    return (
+      <div className="slide-container">
+        {(images.length > 0) && <Slide>
+          {
+            images.map((image, index) => (
+              <div className="each-slide" key={index}>
+                <img src={URL.createObjectURL(image.url)} alt="food" className="restaurant-slide-image" />
+                <Icon className="delete-img" size="large" name="trash" onClick={() => deleteImg(image.id)}></Icon>
+              </div>
+            ))
+          }
+        </Slide>}
+      </div>
+    );
+  }
 
   useEffect(() => {
     if (user && !isLoading) {
@@ -114,9 +139,18 @@ const SignupForm = () => {
     return <Redirect to={redirect} />;
   }
 
+  const handleUpload = (e) => {
+    if (e.target.files) {
+      seterrMessage("");
+      setImages([...images, { url: e.target.files[0], id: count }]);
+      setCount(count + 1);
+      document.getElementById("upload-img").value = "";
+    }
+  }
+
   return (
     <Container>
-      <div>
+      <div className="detail-form">
         <Segment>
           <Header as="h2" icon textAlign="center">
             <Icon name="address book outline" circular />
@@ -126,6 +160,18 @@ const SignupForm = () => {
           </Header>
           <Form error={!!errMessage}>
             {renderFormElements()}
+            <div>
+              <label className="upload-img-btn" htmlFor="upload-img">
+                <Icon name="cloud upload"></Icon> Upload Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                id="upload-img"
+                onChange={(e) => handleUpload(e)}
+              ></input>
+            </div>
+            {renderImages()}
             <Button primary type="submit" onClick={handleSubmit}>
               <Icon name="save" />
               {loadingBtn ? "Loading..." : "Register"}

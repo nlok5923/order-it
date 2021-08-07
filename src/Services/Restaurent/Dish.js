@@ -4,6 +4,7 @@ import "firebase/auth";
 import '@firebase/database'
 import "firebase/firestore";
 import '@firebase/storage';
+import {handleUpload,getFileName,giveSearchWords} from './Shared'
 
 initializeApp();
 const db = firebase.firestore();
@@ -11,15 +12,6 @@ const db = firebase.firestore();
 const getImageUrl = async (folderName, fileName) => {
     let url = await firebase.storage().ref(folderName).child(fileName).getDownloadURL();
     return url;
-}
-
-const handleUpload = async (image, fileName, folderName) => {
-    await firebase.storage().ref(`${folderName}/${fileName}`).put(image);
-}
-
- const getFileName = () => {
-    let fileName = String(Date.now()) + parseInt(Math.random() * 10) + parseInt(Math.random() * 10) + parseInt(Math.random() * 10);
-    return fileName;
 }
 
 const deleteImage = async (img, folderName) => {
@@ -33,22 +25,6 @@ const deleteImage = async (img, folderName) => {
         return err.message;
     }
     console.log("Image Deleted Successfully")
-}
-
-const giveSearchWords = (text,mySet)=>{
-    let tem_word = "";
-    for(let ch of text){
-        if(ch===' '){
-            mySet.add(tem_word.toLowerCase());
-            tem_word = "";
-        }else{
-            tem_word +=ch;
-        }
-    }
-    if(tem_word!==""){
-        mySet.add(tem_word.toLowerCase());
-    }
-    return mySet;
 }
 
 export const addDish = async(info)=>{

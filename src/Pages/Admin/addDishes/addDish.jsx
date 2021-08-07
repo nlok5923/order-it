@@ -3,8 +3,6 @@ import { useState, useEffect, useContext } from 'react';
 import Loader from '../../../Components/Loader/index';
 import { UserContext } from '../../../Providers/UserProvider';
 import { Redirect } from "react-router-dom";
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css'
 import { addDish } from '../../../Services/Restaurent/Dish';
 import {isUser,isRestaurent} from '../../../Services/Utils'
 import {
@@ -34,8 +32,6 @@ const AddDish = () => {
     const [loadingBtn, setLoadingBtn] = useState(false);
     const [errMessage, seterrMessage] = useState("");
     const [dishInfo, setDishInfo] = useState({})
-    // const [images, setImages] = useState([]);
-    // let [count, setCount] = useState(0);
     const renderFormElements = () => {
         return formElement.map((ele, index) => (
             <Form.Field>
@@ -55,23 +51,6 @@ const AddDish = () => {
             </Form.Field>
         ));
     };
-
-    // const renderImages = () => {
-    //     return (
-    //         <div className="slide-container">
-    //             {(images.length > 0) && <Slide>
-    //                 {
-    //                     images.map((image,index)=>(
-    //                         <div className="each-slide" key={index}>
-    //                             <img src={URL.createObjectURL(image.url)} alt="food" className="food-slide-image" />
-    //                             <Icon className="delete-img" size="large" name="trash" onClick={()=>deleteImg(image.id)}></Icon>
-    //                         </div>
-    //                     ))
-    //                 }
-    //             </Slide>}
-    //         </div>
-    //     );
-    // }
 
     const setInfo = (e) => {
         setDishInfo({
@@ -123,10 +102,6 @@ const AddDish = () => {
             seterrMessage(error.message);
         }
     }
-
-    // const deleteImg = (id)=>{
-    //     setImages(images.filter((img) => img.id !== id));
-    // }
 
     const handleUpload = (e) => {
         if (e.target.files) {

@@ -3,6 +3,7 @@ import { initializeApp } from "../Utils";
 import "firebase/auth";
 import "@firebase/database";
 import "firebase/firestore";
+import {handleUpload,getFileName,giveSearchWords} from './Shared';
 
 initializeApp();
 const auth = firebase.auth();
@@ -29,20 +30,40 @@ export const signInForRestaurant = () => {
     });
 };
 
-export const saveRestaurantDetail = async (info) => {
+export const saveRestaurantDetail = async (info,images) => {
   try {
     if (info.id === "") {
       throw Error("Id Not Provided");
     }
+    const {name,email,RestaurantName,country,city,pincode,phone,address,discount,description} = info;
+    description.trim();
+    name.trim();
+    let fileNames = [];
+
+    for(let i=0;i<images.length;i++){
+      let name = getFileName();
+      await handleUpload(images[i],name,"restaurants");
+      fileNames.push(name);
+    }
+
+    let searchKeyWord = new Set();
+    searchKeyWord = giveSearchWords(RestaurantName,searchKeyWord);
+    searchKeyWord = giveSearchWords(description,searchKeyWord);
+    let searchWord = Array.from(searchKeyWord).sort();
+
     await db.collection("restaurants").doc(info.id).set({
-      name: info.name,
-      email: info.email,
-      RestaurantName: info.restaurantName,
-      country: info.country,
-      city: info.city,
-      pincode: info.pincode,
-      number: info.phone,
-      address: info.address,
+      name: name,
+      email: email,
+      RestaurantName: RestaurantName,
+      country: country,
+      city: city,
+      pincode: pincode,
+      number: phone,
+      address: address,
+      discount,
+      description,
+      fileNames,
+      searchWord
     });
     return;
   } catch (error) {
