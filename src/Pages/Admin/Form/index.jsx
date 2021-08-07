@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../../Providers/UserProvider'
-import { Redirect } from "react-router-dom";
+import { Redirect,useHistory } from "react-router-dom";
 import { saveRestaurantDetail } from '../../../Services/Restaurent/RestaurentAuth';
 import {
   Button,
@@ -12,8 +12,10 @@ import {
   Icon,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import {isUser,isRestaurent} from '../../../Services/Utils'
 
 const SignupForm = () => {
+  const history = useHistory();
   const labelStyle = { fontSize: "15px" };
   const [loadingBtn,setLoadingBtn] = useState(false);
   const formElement = [
@@ -69,15 +71,17 @@ const SignupForm = () => {
     setLoadingBtn(true);
     await saveRestaurantDetail(adminInfo);
     setLoadingBtn(false);
-    setredirect("/restaurant");
+    setredirect("/restaurant")
   }
 
   const handleUser = async()=>{
-    if(user.isUser){
+    let isuser = await isUser(user.uid);
+    if(isuser){
       setredirect("/");
       return;
     }
-    if(user.isRestaurant){
+    let isrestaurant = await isRestaurent(user.uid);
+    if(isrestaurant){
       setredirect("/restaurant");
     }else{
       setAdminInfo({

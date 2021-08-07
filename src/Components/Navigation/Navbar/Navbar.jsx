@@ -3,6 +3,7 @@ import NavbarLoggedOut from "../NavGeneral/NavGeneral";
 import NavbarAdminLogged from "../NavAdminLogged/NavAdminLogged";
 import NavbarUserLogged from "../NavUserLogged/NavUserLogged";
 import { UserContext } from "../../../Providers/UserProvider";
+import {isUser,isRestaurent} from '../../../Services/Utils'
 import "./Navbar.scss"
 
 const Navbar = ()=>{
@@ -19,20 +20,15 @@ const Navbar = ()=>{
             setRestaurantLogged(false);
             setLoggedOut(true);
         }else{
-            if(user.isUser){
+            let isuser =await isUser(user.uid);
+            if(isuser){
                 setRestaurantLogged(false);
                 setLoggedOut(false);
                 setUserLogged(true);
             }else{
-                if(user.isRestaurant){
-                    setUserLogged(false);
-                    setLoggedOut(false);
-                    setRestaurantLogged(true);
-                }else{
-                    setUserLogged(false);
-                    setRestaurantLogged(false);
-                    setLoggedOut(true);
-                }
+                setUserLogged(false);
+                setLoggedOut(false);
+                setRestaurantLogged(true)
             }
         }
         setLoading(false);

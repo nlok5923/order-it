@@ -1,8 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
-import {initializeApp} from '../Services/Utils';
-import {isUser,isRestaurent } from '../Services/Utils'
+import {initializeApp} from '../Services/Utils'
 
 initializeApp();
 const auth = firebase.auth();
@@ -17,13 +16,8 @@ const UserProvider = (props) => {
     auth.onAuthStateChanged(async (person) => {
       if (person) {
         const { displayName, email,uid } = person;
-        let isuser = await isUser(uid);
-        let isrestaurent = false;
-        if(!isuser){
-            isrestaurent = await isRestaurent(uid);
-        }
         setInfo({
-          user: { displayName, email,uid,isUser:isuser,isRestaurant:isrestaurent },
+          user: { displayName, email,uid },
           isLoading: false,
         });
       } else {

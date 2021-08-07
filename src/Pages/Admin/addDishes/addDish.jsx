@@ -5,6 +5,8 @@ import { UserContext } from '../../../Providers/UserProvider';
 import { Redirect } from "react-router-dom";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
+import { addDish } from '../../../Services/Restaurent/Dish';
+import {isUser,isRestaurent} from '../../../Services/Utils'
 import {
     Button,
     Form,
@@ -32,8 +34,8 @@ const AddDish = () => {
     const [loadingBtn, setLoadingBtn] = useState(false);
     const [errMessage, seterrMessage] = useState("");
     const [dishInfo, setDishInfo] = useState({})
-    const [images, setImages] = useState([]);
-    let [count, setCount] = useState(0);
+    // const [images, setImages] = useState([]);
+    // let [count, setCount] = useState(0);
     const renderFormElements = () => {
         return formElement.map((ele, index) => (
             <Form.Field>
@@ -41,7 +43,7 @@ const AddDish = () => {
                     {ele.labelName}
                 </label>
                 {ele.isTextArea ?
-                    <TextArea required placeholder={ele.placeholder} style={{ minHeight: 150 }} />
+                    <TextArea onChange={(e) => setInfo(e)} name={ele.name} required placeholder={ele.placeholder} style={{ minHeight: 150 }} />
                     :
                     <input
                         type={ele.type}
@@ -54,22 +56,22 @@ const AddDish = () => {
         ));
     };
 
-    const renderImages = () => {
-        return (
-            <div className="slide-container">
-                {(images.length > 0) && <Slide>
-                    {
-                        images.map((image,index)=>(
-                            <div className="each-slide" key={index}>
-                                <img src={URL.createObjectURL(image.url)} alt="food" className="food-slide-image" />
-                                <Icon className="delete-img" size="large" name="trash" onClick={()=>deleteImg(image.id)}></Icon>
-                            </div>
-                        ))
-                    }
-                </Slide>}
-            </div>
-        );
-    }
+    // const renderImages = () => {
+    //     return (
+    //         <div className="slide-container">
+    //             {(images.length > 0) && <Slide>
+    //                 {
+    //                     images.map((image,index)=>(
+    //                         <div className="each-slide" key={index}>
+    //                             <img src={URL.createObjectURL(image.url)} alt="food" className="food-slide-image" />
+    //                             <Icon className="delete-img" size="large" name="trash" onClick={()=>deleteImg(image.id)}></Icon>
+    //                         </div>
+    //                     ))
+    //                 }
+    //             </Slide>}
+    //         </div>
+    //     );
+    // }
 
     const setInfo = (e) => {
         setDishInfo({
@@ -79,12 +81,19 @@ const AddDish = () => {
     };
 
     const handleUser = async () => {
-        if (user.isUser) {
+        let isuser = await isUser(user.uid);
+        if (isuser) {
             setredirect("/");
             return;
         }
-        if (!user.isRestaurant) {
+        let isrestaurant = await isRestaurent(user.uid);
+        if (!isrestaurant) {
             setredirect("/restaurant/details");
+        }else{
+            setDishInfo({
+                ...dishInfo,
+                uid:user.uid
+            })
         }
         setLoading(false);
     }
@@ -100,31 +109,34 @@ const AddDish = () => {
     }, [user, isLoading]);
 
     const handleSubmit = async() => {
-        if(images.length===0){
-            seterrMessage("Please Upload Atleast One Image")
+        if(!dishInfo.image){
+            seterrMessage("Please Upload a Image of Your Dish")
             return;
         }
-        setDishInfo({
-            ...dishInfo,
-            images
-        })
+        seterrMessage("");
         setLoadingBtn(true);
         try {
-            // await addDish(dishInfo);
+            await addDish(dishInfo);
+            setredirect("/restaurant")
         } catch (error) {
+            setLoadingBtn(false);
             seterrMessage(error.message);
         }
-        setLoadingBtn(false);
     }
 
-    const deleteImg = (id)=>{
-        setImages(images.filter((img) => img.id !== id));
-    }
+    // const deleteImg = (id)=>{
+    //     setImages(images.filter((img) => img.id !== id));
+    // }
 
     const handleUpload = (e) => {
         if (e.target.files) {
-            setImages([...images, { url: e.target.files[0], id: count }]);
-            setCount(count + 1);
+            seterrMessage("");
+            setDishInfo({
+                ...dishInfo,
+                image:e.target.files[0]
+            })
+            // setImages([...images, { url: e.target.files[0], id: count }]);
+            // setCount(count + 1);
             document.getElementById("upload-img").value = "";
         }
     }
@@ -155,8 +167,10 @@ const AddDish = () => {
                                         onChange={(e) => handleUpload(e)}
                                     ></input>
                                 </div>
-                                <div>
-                                    {renderImages()}
+                                <div className='image-parent'>
+                                    {dishInfo.image && 
+                                        <img src={URL.createObjectURL(dishInfo.image)} alt="food" className="food-slide-image" />
+                                    }
                                 </div>
                                 <Button color="red" type="submit" onClick={handleSubmit}>
                                     {loadingBtn ? "Adding..." : "Add"}

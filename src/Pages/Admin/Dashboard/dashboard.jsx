@@ -3,7 +3,8 @@ import { Button } from 'semantic-ui-react';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../Providers/UserProvider';
 import Loader from '../../../Components/Loader/index'
-import { Redirect } from "react-router-dom";
+import { Redirect} from "react-router-dom";
+import {isUser,isRestaurent} from '../../../Services/Utils'
 
 const Dashboard = () => {
     const info = useContext(UserContext);
@@ -12,11 +13,13 @@ const Dashboard = () => {
     const [redirect, setredirect] = useState(null);
 
     const handleUser = async () => {
-        if (user.isUser){
+        let isuser = await isUser(user.uid)
+        if (isuser){
             setredirect("/");
             return;
         }
-        if (!user.isRestaurant) {
+        let isrestaurant = await isRestaurent(user.uid);
+        if (!isrestaurant) {
             setredirect("/restaurant/details");
         } else {
             
@@ -39,7 +42,11 @@ const Dashboard = () => {
     return (
         <div>
             {(isLoading || loading) && <Loader />}
-            <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
+            {!isLoading && !loading && 
+                <div>
+                    <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
+                </div>
+            }
         </div>
     );
 }

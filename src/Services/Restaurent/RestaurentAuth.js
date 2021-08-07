@@ -5,7 +5,7 @@ import '@firebase/database'
 import "firebase/firestore";
 
 initializeApp();
-export const auth = firebase.auth();
+const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 var user;
 const db = firebase.firestore();

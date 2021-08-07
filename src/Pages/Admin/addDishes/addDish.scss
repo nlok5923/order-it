@@ -1,13 +1,9 @@
-.each-slide {
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
 .food-slide-image {
-    width: 70%;
+    max-width: 300px;
+    max-height: 300px;
+}
+.image-parent{
+    text-align: center;
 }
 
 #upload-img{
