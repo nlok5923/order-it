@@ -9,12 +9,12 @@ import {handleUpload,getFileName,giveSearchWords} from './Shared'
 initializeApp();
 const db = firebase.firestore();
 
-const getImageUrl = async (folderName, fileName) => {
+export const getImageUrl = async (folderName, fileName) => {
     let url = await firebase.storage().ref(folderName).child(fileName).getDownloadURL();
     return url;
 }
 
-const deleteImage = async (img, folderName) => {
+export const deleteImage = async (img, folderName) => {
     // Create a reference to the file to delete
     var imageRef = firebase.storage().ref(folderName).child(img);
     // Delete the file

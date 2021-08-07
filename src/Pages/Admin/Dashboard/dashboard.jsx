@@ -6,6 +6,7 @@ import Loader from '../../../Components/Loader/index'
 import { Redirect} from "react-router-dom";
 import {isUser,isRestaurent} from '../../../Services/Utils';
 import DishCard from "../../../Components/Cards/DishCard"
+import {  getRestaurantDishes } from "../../../Services/Restaurent/RestaurantServices"
 
 const dishes = [
     {
@@ -69,6 +70,7 @@ const Dashboard = () => {
     const { user, isLoading } = info;
     const [loading, setLoading] = useState(true);
     const [redirect, setredirect] = useState(null);
+    const [restaurantDishes, setrestaurantDishes] = useState([]);
 
     const handleUser = async () => {
         let isuser = await isUser(user.uid)
@@ -80,7 +82,8 @@ const Dashboard = () => {
         if (!isrestaurant) {
             setredirect("/restaurant/details");
         } else {
-            
+            getRestaurantDishes(user.uid).then(data => { console.log(data); setrestaurantDishes(data) });
+            console.log(restaurantDishes)
         }
         setLoading(false);
     }
@@ -102,7 +105,9 @@ const Dashboard = () => {
             {(isLoading || loading) && <Loader />}
             <Container>
             <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
-            {dishes.map((data, index) => <DishCard info = {data} isRestaurant={true} />)}
+            {/* {dishes.map((data, index) => <DishCard info = {data} isRestaurant={true} />)} */}
+            <h1></h1>
+            {/* {restaurantDishes.dishInfo.map((data, index) => <DishCard info={data} />)} */}
             </Container>
         </div>
     );
