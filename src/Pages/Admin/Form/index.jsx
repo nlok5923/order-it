@@ -3,7 +3,6 @@ import { UserContext } from '../../../Providers/UserProvider'
 import { Redirect } from "react-router-dom";
 import { isUser, isRestaurent } from '../../../Services/Utils'
 import { saveRestaurantDetail } from '../../../Services/Restaurent/RestaurentAuth';
-
 import {
   Button,
   Form,
