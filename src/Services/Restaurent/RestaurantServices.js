@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import { initializeApp } from '../Utils';
+import { getImageUrl } from "./Dish"
 import "firebase/auth";
 import '@firebase/database'
 import "firebase/firestore";
@@ -28,25 +29,31 @@ export const getRestaurants = async () => {
           console.log(error.message);
           return error.message;
       }
-}
+ }
 
-export const saveRestaurantDetail = async(info)=>{
+
+ export const getRestaurantDishes = async (id) => {
     try {
-        if(info.id===""){
-            throw Error("Id Not Provided");
-        }
-        await db.collection("restaurants").doc(info.id).set({
-            name:info.name,
-            email:info.email,
-            RestaurantName:info.restaurantName,
-            country:info.country,
-            city:info.city,
-            pincode:info.pincode,
-            number:info.phone,
-            address:info.address
+        let data = [];
+        let ref = await db.collection("restaurants").doc(id).collection("dishes").get();  
+        ref.forEach(async (doc) => {
+            let imageUrl = await getImageUrl("dish", doc.data().fileName);
+            let dishInfo = {
+                dishName: doc.data().dishName,
+                price: doc.data().price,
+                discount: doc.data().discount,
+                description: doc.data().description,
+                firebaseImage: imageUrl
+            }
+            console.log(dishInfo + " "+ doc.id);
+            data.push({
+                id: doc.id,
+                dishInfo
+            })
         })
-        return;
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+        return data;
+      } catch (error) {
+          console.log(error.message);
+          return error.message;
+      }  
+ };
