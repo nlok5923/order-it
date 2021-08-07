@@ -5,6 +5,7 @@ import { Card, Header, Icon, Button, Label } from "semantic-ui-react";
 
 const OrderCard = (props) => {
   const history = useHistory();
+
   return (
     <Card fluid>
       <Card.Content>
@@ -12,20 +13,36 @@ const OrderCard = (props) => {
           <div className="dish-info-text">
             <Header as="h2">{props.info.dishName}</Header>
             <Header as="h2">
-              <Header.Subheader>Amount: {props.info.price} with {props.info.discount}% discount</Header.Subheader>
               <Header.Subheader>
-                Description: {props.info.description}
+                Amount: {props.info.price} with {props.info.discount}% discount
+              </Header.Subheader>
+              <Header.Subheader>
+                Description: {props.info.description} 
               </Header.Subheader>
             </Header>
             {props.isRestaurant ? (
               <div>
-                <Button icon="edit" onClick={() => {
-                  history.push({
-                    pathname: '/restaurant/edit-dish',
-                    data: props.info
-                  })
-                }} basic floated="left" color="green" />
-                <Button icon="trash" basic floated="left" color="red" />
+                <Button
+                  icon="edit"
+                  onClick={() => {
+                    history.push({
+                      pathname: "/restaurant/edit-dish",
+                      data: props.info,
+                    });
+                  }}
+                  basic
+                  floated="left"
+                  color="green"
+                />
+                <Button
+                  icon="trash"
+                  basic
+                  onClick={() =>
+                    props.deleteParitcularDish(props.uid, props.info.dishId, props.info.fileName)
+                  }
+                  floated="left"
+                  color="red"
+                />
               </div>
             ) : (
               <Button

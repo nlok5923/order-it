@@ -41,7 +41,7 @@ const Page = () => {
     <Segment>
       <div className="slide-container">
         <Slide {...properties}>
-          {restaurantImages.map((data, index)=>{
+          {images.map((data, index)=>{
             return(
              <div className="each-slide">
              <img src={data.url} alt="food" className="food-slider-image" />

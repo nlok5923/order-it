@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import { initializeApp } from '../Utils';
-import { getImageUrl } from "./Dish"
+import { getImageUrl, deleteImage } from "./Dish"
 import "firebase/auth";
 import '@firebase/database'
 import "firebase/firestore";
@@ -109,3 +109,14 @@ export const getRestaurantImagesUrl = async (id) => {
         return err.message;
     }
 }
+
+
+export const deleteDish = async (restId, dishId, filename) => {
+    try {
+        await db.collection("restaurants").doc(restId).collection("dishes").doc(dishId).delete();
+        await deleteImage(filename, "restaurants");
+    } catch(err) {
+        console.log(err.message);
+        return err.message;
+    }
+};

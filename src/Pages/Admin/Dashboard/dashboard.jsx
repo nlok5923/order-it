@@ -6,7 +6,7 @@ import Loader from '../../../Components/Loader/index'
 import { NavLink, Redirect } from "react-router-dom";
 import { isUser, isRestaurent } from '../../../Services/Utils';
 import DishCard from "../../../Components/Cards/DishCard"
-import { getRestaurantDishes } from "../../../Services/Restaurent/RestaurantServices"
+import { getRestaurantDishes, deleteDish } from "../../../Services/Restaurent/RestaurantServices"
 
 const Dashboard = () => {
     const info = useContext(UserContext);
@@ -14,6 +14,11 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [redirect, setredirect] = useState(null);
     const [restaurantDishes, setrestaurantDishes] = useState([]);
+
+    const deleteParitcularDish = async (restId, dishId, fileName) => {
+        await deleteDish(restId, dishId, fileName);
+        handleUser();
+    }
 
     const handleUser = async () => {
         let isuser = await isUser(user.uid)
@@ -51,7 +56,7 @@ const Dashboard = () => {
                 <NavLink activeClassName="current" to="/restaurant/add-dish"> 
                 <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
                 </NavLink>
-                {restaurantDishes.map((data, index) => <DishCard isRestaurant={true} info={data} uid={user.uid} />)}
+                {restaurantDishes.map((data, index) => <DishCard isRestaurant={true} info={data} uid={user.uid} deleteParitcularDish={deleteParitcularDish} />)}
             </Container>
         </div>
     );
