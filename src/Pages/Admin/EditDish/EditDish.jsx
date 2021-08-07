@@ -15,7 +15,7 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-const EditDish = (dish) => {
+const EditDish = (props) => {
     const labelStyle = { fontSize: "15px" };
     const [redirect, setredirect] = useState(null);
     const formElement = [
@@ -34,7 +34,7 @@ const EditDish = (dish) => {
                     {ele.labelName}
                 </label>
                 {ele.isTextArea ?
-                    <TextArea onChange={(e) => setInfo(e)} name={ele.name} required placeholder={ele.placeholder} style={{ minHeight: 150 }}>{dishInfo.description}</TextArea>
+                    <TextArea onChange={(e) => setInfo(e)} name={ele.name} required placeholder={ele.placeholder} style={{ minHeight: 150 }} value={dishInfo.description} />
                     :
                     <input
                         type={ele.type}
@@ -56,6 +56,8 @@ const EditDish = (dish) => {
     };
 
     useEffect(() => {
+        const dish = props.location.data;
+        console.log(dish);
         if (!dish) {
             setredirect("/restaurant");
         } else {
@@ -64,10 +66,6 @@ const EditDish = (dish) => {
     }, []);
 
     const handleSubmit = async () => {
-        if (!dishInfo.image) {
-            seterrMessage("Please Upload a Image of Your Dish")
-            return;
-        }
         seterrMessage("");
         setLoadingBtn(true);
         try {
@@ -84,10 +82,7 @@ const EditDish = (dish) => {
             seterrMessage("");
             setDishInfo({
                 ...dishInfo,
-                image: e.target.files[0]
-            })
-            setDishInfo({
-                ...dishInfo,
+                image: e.target.files[0],
                 firebaseImage:""
             })
             document.getElementById("upload-img").value = "";
