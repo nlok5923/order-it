@@ -26,12 +26,9 @@ const Dashboard = () => {
             setredirect("/restaurant/details");
         } else {
             getRestaurantDishes(user.uid).then(data => {
-                console.log(data); 
                 setrestaurantDishes(data);
                 setLoading(false);
             });
-
-            console.log(restaurantDishes)
         }
     }
 

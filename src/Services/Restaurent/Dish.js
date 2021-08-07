@@ -55,16 +55,19 @@ export const addDish = async(info)=>{
 
 export const editDish = async(info)=>{
     try {
-        const {dishName,price,discount,description,image,uid} = info;
-        let fileName = getFileName();
-        await handleUpload(image,fileName,"dish");
+        let {dishName,price,discount,description,image,uid,dishId,fileName} = info;
+        if(image){
+            await deleteImage(fileName,"dish");
+            fileName = getFileName();
+            await handleUpload(image,fileName,"dish");
+        }
         let searchKeyWord = new Set();
         dishName.trim();
         description.trim();
         searchKeyWord = giveSearchWords(dishName,searchKeyWord);
         searchKeyWord = giveSearchWords(description,searchKeyWord);
         let searchWord = Array.from(searchKeyWord).sort();
-        await db.collection("restaurants").doc(uid).collection("dishes").add({
+        await db.collection("restaurants").doc(uid).collection("dishes").doc(dishId).update({
             dishName,
             price,
             discount,

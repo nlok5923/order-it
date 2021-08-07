@@ -43,7 +43,8 @@ export const getRestaurants = async () => {
                 discount: doc.data().discount,
                 description: doc.data().description,
                 fileName: doc.data().fileName,
-                dishId:doc.id
+                dishId:doc.id,
+                uid:id
             })
         })
         for(let i=0;i<data.length;i++){

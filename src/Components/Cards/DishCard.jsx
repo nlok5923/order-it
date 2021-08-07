@@ -1,15 +1,10 @@
 import React from "react";
 import "./Card.scss";
+import { useHistory } from "react-router-dom";
 import { Card, Header, Icon, Button, Label } from "semantic-ui-react";
 
-// name: "yoyo",
-// price: "500",
-// desc: 'you will love it',
-// discount: "10% off",
-// date: "04/04/2020",
-// status: "dispatched",
-// details: ""
 const OrderCard = (props) => {
+  const history = useHistory();
   return (
     <Card fluid>
       <Card.Content>
@@ -24,7 +19,12 @@ const OrderCard = (props) => {
             </Header>
             {props.isRestaurant ? (
               <div>
-                <Button icon="edit" basic floated="left" color="green" />
+                <Button icon="edit" onClick={() => {
+                  history.push({
+                    pathname: '/restaurant/edit-dish',
+                    data: props.info
+                  })
+                }} basic floated="left" color="green" />
                 <Button icon="trash" basic floated="left" color="red" />
               </div>
             ) : (
