@@ -9,10 +9,15 @@ initializeApp();
 var user;
 const db = firebase.firestore();
 
-export const getRestaurants = async () => {
+export const getRestaurants = async (search) => {
     try {
         let data = [];
-        let ref = await db.collection("restaurants").get();  
+        let ref;
+        if(search===""){
+            ref =await db.collection("restaurants").get();  
+        }else{
+            
+        }
         ref.forEach(async (doc) => {
             data.push({
                 RestaurantName: doc.data().RestaurantName,
