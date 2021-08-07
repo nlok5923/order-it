@@ -42,10 +42,10 @@ export const saveRestaurantDetail = async (info,images) => {
 
     for(let i=0;i<images.length;i++){
       let name = getFileName();
-      await handleUpload(images[i],name,"restaurants");
+      await handleUpload(images[i].url,name,"restaurants");
       fileNames.push(name);
     }
-
+    
     let searchKeyWord = new Set();
     searchKeyWord = giveSearchWords(RestaurantName,searchKeyWord);
     searchKeyWord = giveSearchWords(description,searchKeyWord);

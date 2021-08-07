@@ -1,14 +1,13 @@
-import Card from "../Components/Cards/index"
+import Card from "../../../Components/Cards/index"
 import { Container, Grid, Header } from 'semantic-ui-react'
-import { getRestaurants } from "../Services/Restaurent/RestaurantServices"
+import { searchRestaurants } from "../../../Services/Restaurent/RestaurantServices"
 import { useEffect, useState, useContext } from "react";
-import { UserContext } from "../Providers/UserProvider";
-import { isRestaurent } from '../Services/Utils'
+import { UserContext } from "../../../Providers/UserProvider";
+import { isRestaurent } from '../../../Services/Utils'
 import { NavLink } from "react-router-dom"
-import Loader from '../Components/Loader/index';
-import DataLoader from '../Components/LoadingData/LoadingData'
-
-const marginTop = { marginTop: "5%" }
+import Loader from '../../../Components/Loader/index';
+import DataLoader from '../../../Components/LoadingData/LoadingData'
+import { useParams } from "react-router";
 
 const Home = () => {
   const info = useContext(UserContext);
@@ -17,10 +16,11 @@ const Home = () => {
   const [restaurant, setRestaurants] = useState([]);
   const [loading,setLoading] = useState(true);
   const [loadingData,setLoadingData] = useState(false);
+  const { pinCode,searchText } = useParams();
 
   const fetchData = async () => {
     setLoadingData(true);
-    let data = await getRestaurants();
+    let data = await searchRestaurants(pinCode,searchText);
     setRestaurants(data)
     setLoadingData(false);
   }
@@ -43,7 +43,7 @@ const Home = () => {
     if(!isLoading){
         handleUser();
     }
-  }, [user,isLoading])
+  }, [user,isLoading,pinCode,searchText])
 
   return (
     <div> 
@@ -52,7 +52,7 @@ const Home = () => {
       {!loading && !loadingData && <Container >
         <Header as="h1">Search best foods </Header>
         <Grid stackable columns={4}>
-          {restaurant
+          {restaurant && restaurant.length>0 && restaurant
             .map((data) => {
               return (
                 <Grid.Column>
