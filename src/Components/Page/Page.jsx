@@ -7,21 +7,21 @@ import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
 const Page = () => {
   return (
     <>
-      <Container>
-        <Segment>
-          <div className="slide-container">
-            <Slide>
-              <div className="each-slide">
-                <img src="/images/google-logo.jpg" alt="food" className="food-image" />
-              </div>
-              <div className="each-slide">
-                <img src="/images/google-logo.jpg" alt="food" className="food-image" />
-              </div>
-              <div className="each-slide">
-                <img src="/images/google-logo.jpg" alt="food" className="food-image" />
-              </div>
-            </Slide>
+        <Container>
+    <Segment>
+      <div className="slide-container">
+        <Slide>
+          <div className="each-slide">
+              <img src="/images/pizza.jpg" alt="food" className="food-slide-image" />
           </div>
+          <div className="each-slide">
+              <img src="/images/google-logo.jpg" alt="food" className="food-slide-image"/>
+          </div>
+          <div className="each-slide">
+              <img src="/images/google-logo.jpg" alt="food" className="food-slide-image"/>
+          </div>
+        </Slide>
+      </div>
 
           <Header as="h1">Restaurant Name</Header>
           <p> City | Country | Dish name</p>

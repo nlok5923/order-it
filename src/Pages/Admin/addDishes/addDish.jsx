@@ -32,6 +32,8 @@ const AddDish = () => {
     const [loadingBtn, setLoadingBtn] = useState(false);
     const [errMessage, seterrMessage] = useState("");
     const [dishInfo, setDishInfo] = useState({})
+    const [images, setImages] = useState([]);
+    let [count, setCount] = useState(0);
     const renderFormElements = () => {
         return formElement.map((ele, index) => (
             <Form.Field>
@@ -55,17 +57,16 @@ const AddDish = () => {
     const renderImages = () => {
         return (
             <div className="slide-container">
-                <Slide>
-                    <div className="each-slide">
-                        <img src="/images/pizza.jpg" alt="food" className="food-image" />
-                    </div>
-                    <div className="each-slide">
-                        <img src="/images/pizza.jpg" alt="food" className="food-image" />
-                    </div>
-                    <div className="each-slide">
-                        <img src="/images/pizza.jpg" alt="food" className="food-image" />
-                    </div>
-                </Slide>
+                {(images.length > 0) && <Slide>
+                    {
+                        images.map((image,index)=>(
+                            <div className="each-slide" key={index}>
+                                <img src={URL.createObjectURL(image.url)} alt="food" className="food-slide-image" />
+                                <Icon className="delete-img" size="large" name="trash" onClick={()=>deleteImg(image.id)}></Icon>
+                            </div>
+                        ))
+                    }
+                </Slide>}
             </div>
         );
     }
@@ -98,8 +99,34 @@ const AddDish = () => {
         }
     }, [user, isLoading]);
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
+        if(images.length===0){
+            seterrMessage("Please Upload Atleast One Image")
+            return;
+        }
+        setDishInfo({
+            ...dishInfo,
+            images
+        })
+        setLoadingBtn(true);
+        try {
+            // await addDish(dishInfo);
+        } catch (error) {
+            seterrMessage(error.message);
+        }
+        setLoadingBtn(false);
+    }
 
+    const deleteImg = (id)=>{
+        setImages(images.filter((img) => img.id !== id));
+    }
+
+    const handleUpload = (e) => {
+        if (e.target.files) {
+            setImages([...images, { url: e.target.files[0], id: count }]);
+            setCount(count + 1);
+            document.getElementById("upload-img").value = "";
+        }
     }
 
     if (redirect) {
@@ -117,7 +144,20 @@ const AddDish = () => {
                             </Header>
                             <Form error={!!errMessage}>
                                 {renderFormElements()}
-                                {renderImages()}
+                                <div>
+                                    <label className="upload-img-btn" htmlFor="upload-img">
+                                        <Icon name="cloud upload"></Icon> Upload Image
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        id="upload-img"
+                                        onChange={(e) => handleUpload(e)}
+                                    ></input>
+                                </div>
+                                <div>
+                                    {renderImages()}
+                                </div>
                                 <Button color="red" type="submit" onClick={handleSubmit}>
                                     {loadingBtn ? "Adding..." : "Add"}
                                 </Button>

@@ -2,8 +2,8 @@ import { useState,useEffect,useContext } from "react";
 import NavbarLoggedOut from "../NavGeneral/NavGeneral";
 import NavbarAdminLogged from "../NavAdminLogged/NavAdminLogged";
 import NavbarUserLogged from "../NavUserLogged/NavUserLogged";
-import Loader from '../../Loader/index';
 import { UserContext } from "../../../Providers/UserProvider";
+import "./Navbar.scss"
 
 const Navbar = ()=>{
     const [loading,setLoading] = useState(true);
@@ -46,7 +46,6 @@ const Navbar = ()=>{
 
     return (
         <div>
-            {(isLoading || loading) && <Loader />}
             {!isLoading && !loading && loggedOut && <NavbarLoggedOut />}
             {!isLoading && !loading && userLogged && <NavbarUserLogged />}
             {!isLoading && !loading && restaurantLogged && <NavbarAdminLogged />}

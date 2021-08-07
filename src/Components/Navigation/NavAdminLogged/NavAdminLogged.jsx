@@ -34,13 +34,15 @@ const Navbar = () => {
     ]
 
     return(
-        <Menu>
+      <div className="menu">
+        <Menu  className="menu">
         <Menu.Item header>Order it </Menu.Item>
             <Menu.Item position="right">
             <Dropdown trigger={trigger} options={restaurantOptions} onChange={(e, data) => handleCategorySelection(e, data)} />
             </Menu.Item>
 
       </Menu>
+      </div>
     )
 }
 
