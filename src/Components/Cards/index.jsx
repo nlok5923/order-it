@@ -6,7 +6,7 @@ const CardExampleCard = (props) => (
     <Label color='red' floating>{props.info.discount}</Label>
     <Image src='/images/pizza.jpg' wrapped ui={false} />
     <Card.Content>
-      <Card.Header>{props.info.name}</Card.Header>     
+      <Card.Header>{props.info.RestaurantName}</Card.Header>     
       <Card.Description>
         <span>{props.info.address}</span>
       </Card.Description>

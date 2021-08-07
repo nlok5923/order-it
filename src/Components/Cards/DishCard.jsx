@@ -15,24 +15,27 @@ const OrderCard = (props) => {
       <Card.Content>
         <div className="dish-info">
           <div className="dish-info-text">
-              <Header as="h2">
-            {props.info.name}
-              </Header>
-            <Header as ="h2"> 
-            <Header.Subheader>
-                Amount: {props.info.price}
-            </Header.Subheader>
-            <Header.Subheader>
+            <Header as="h2">{props.info.name}</Header>
+            <Header as="h2">
+              <Header.Subheader>Amount: {props.info.price}</Header.Subheader>
+              <Header.Subheader>
                 Description: {props.info.desc}
-            </Header.Subheader>
+              </Header.Subheader>
             </Header>
-            <Button
-              icon="add"
-              basic
-              floated="left"
-              content="Add to cart"
-              color="red"
-            />
+            {props.isRestaurant ? (
+              <div>
+                <Button icon="edit" basic floated="left" color="red" />
+                <Button icon="eye" basic floated="left" color="green" />
+              </div>
+            ) : (
+              <Button
+                icon="add"
+                basic
+                floated="left"
+                content="Add to cart"
+                color="red"
+              />
+            )}
           </div>
           <div className="dish-info-img">
             <img

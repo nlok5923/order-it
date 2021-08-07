@@ -13,19 +13,22 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import {isUser,isRestaurent} from '../../../Services/Utils'
+import "./Form.scss";
 
 const SignupForm = () => {
   const history = useHistory();
   const labelStyle = { fontSize: "15px" };
-  const [loadingBtn,setLoadingBtn] = useState(false);
+  const [loadingBtn, setLoadingBtn] = useState(false);
   const formElement = [
-    { name: "restaurantName", type: "text" },
-    { name: "country", type: "text" },
-    { name: "city", type: "text" },
-    { name: "pincode", type: "number" },
-    { name: "phone", type: "number" },
-    { name: "address", type: "text" }
-  ]
+    { name: "RestaurantName", type: "text", isTextarea: false },
+    { name: "country", type: "text", isTextarea: false },
+    { name: "city", type: "text", isTextarea: false },
+    { name: "pincode", type: "number", isTextarea: false },
+    { name: "phone", type: "number", isTextarea: false },
+    { name: "address", type: "text", isTextarea: false },
+    { name: "discount", type: "number", isTextarea: false },
+    { name: "description", type: "text", isTextarea: true },
+  ];
 
   const renderFormElements = () => {
     return formElement.map((ele, index) => (
@@ -33,28 +36,34 @@ const SignupForm = () => {
         <label style={labelStyle} className="label">
           {ele.name}
         </label>
-        <input
-          type={ele.type}
-          name={ele.name}
-          placeholder={ele.placeholder}
-          onChange={(e) => setInfo(e)}
-          required
-        />
+        {ele.isTextarea ? (
+          <textarea name={ele.name} type={ele.type} onChange={(e) => setInfo(e)} />
+        ) : (
+          <input
+            type={ele.type}
+            name={ele.name}
+            placeholder={ele.placeholder}
+            onChange={(e) => setInfo(e)}
+            required
+          />
+        )}
       </Form.Field>
     ));
   };
 
   const [errMessage, seterrMessage] = useState("");
   const [adminInfo, setAdminInfo] = useState({
-    restaurantName: "",
+    RestaurantName: "",
     country: "",
     city: "",
     pincode: "",
     address: "",
     phone: "",
-    name:"",
-    email:"",
-    id:""
+    name: "",
+    email: "",
+    id: "",
+    description: "",
+    discount: ""
   });
   const info = useContext(UserContext);
   const { user, isLoading } = info;
@@ -67,7 +76,7 @@ const SignupForm = () => {
     });
   };
 
-  const handleSubmit = async()=>{
+  const handleSubmit = async () => {
     setLoadingBtn(true);
     await saveRestaurantDetail(adminInfo);
     setLoadingBtn(false);
@@ -83,21 +92,21 @@ const SignupForm = () => {
     let isrestaurant = await isRestaurent(user.uid);
     if(isrestaurant){
       setredirect("/restaurant");
-    }else{
+    } else {
       setAdminInfo({
         ...adminInfo,
-        name:user.displayName,
-        email:user.email,
-        id:user.uid
-      })
+        name: user.displayName,
+        email: user.email,
+        id: user.uid,
+      });
     }
-  }
+  };
 
   useEffect(() => {
     if (user && !isLoading) {
-        handleUser();
-    }else if(!user && !isLoading){
-      setredirect("/admin/login")
+      handleUser();
+    } else if (!user && !isLoading) {
+      setredirect("/admin/login");
     }
   }, [user, isLoading]);
 
@@ -111,13 +120,15 @@ const SignupForm = () => {
         <Segment>
           <Header as="h2" icon textAlign="center">
             <Icon name="address book outline" circular />
-            <Header.Content>Complete Your Profile By Filling Below Details </Header.Content>
+            <Header.Content>
+              Complete Your Profile By Filling Below Details{" "}
+            </Header.Content>
           </Header>
           <Form error={!!errMessage}>
             {renderFormElements()}
             <Button primary type="submit" onClick={handleSubmit}>
               <Icon name="save" />
-              {loadingBtn?"Loading...":"Register"}
+              {loadingBtn ? "Loading..." : "Register"}
             </Button>
             <Message error header="Oops!!" content={errMessage} />
           </Form>

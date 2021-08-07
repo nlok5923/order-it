@@ -15,13 +15,11 @@ const Navbar = () => {
     const history = useHistory();
     const handleCategorySelection = (e, data) => {
         switch (data.value) {
-            case "logout": signOut();
+            case "logout":  signOut(); history.push("/"); 
                 break;
-            case "uregister": history.push("/user/login")
+            case "mycart": history.push("/user/cart")
                 break;
-            case "alogin": history.push("/admin/login")
-                break;
-            case "aregister": history.push("/admin/login")
+            case "myorders": history.push("/user/orders")
                 break;
             default:
         }
@@ -39,11 +37,23 @@ const Navbar = () => {
         <Menu>
             <Menu.Item header>Order it </Menu.Item>
             <Menu.Item>
-                <Form>
-                    <Form.Field>
-                        <input type="text" placeholder="search food" />
-                    </Form.Field>
-                </Form>
+            <Form>
+                <Form.Field>
+                    <input type="text" placeholder="Enter pincode" />
+                </Form.Field>
+            </Form>
+            </Menu.Item>
+
+            <Menu.Item position="right" style={{ width:"70%" }}>
+            <Form>
+                <Form.Field>
+                    <input 
+                    className="search-bar-width" 
+                    style={{ width: "60vw" }} 
+                    type="text" 
+                    placeholder="Enter food name/restaurant name" />
+                </Form.Field>
+            </Form>
             </Menu.Item>
 
             <Menu.Item position="right">

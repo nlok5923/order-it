@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
-import {initializeApp} from '../Utils';
+import { initializeApp } from "../Utils";
 import "firebase/auth";
-import '@firebase/database'
+import "@firebase/database";
 import "firebase/firestore";
 
 initializeApp();
@@ -15,7 +15,7 @@ export const signInForRestaurant = () => {
     .signInWithPopup(provider)
     .then((result) => {
       user = result.user;
-      console.log(user.displayName)
+      console.log(user.displayName);
     })
     .catch((error) => {
       // Handle Errors here.
@@ -29,23 +29,23 @@ export const signInForRestaurant = () => {
     });
 };
 
-export const saveRestaurantDetail = async(info)=>{
-    try {
-        if(info.id===""){
-            throw Error("Id Not Provided");
-        }
-        await db.collection("restaurants").doc(info.id).set({
-            name:info.name,
-            email:info.email,
-            RestaurantName:info.restaurantName,
-            country:info.country,
-            city:info.city,
-            pincode:info.pincode,
-            number:info.phone,
-            address:info.address
-        })
-        return;
-    } catch (error) {
-        console.log(error.message);
+export const saveRestaurantDetail = async (info) => {
+  try {
+    if (info.id === "") {
+      throw Error("Id Not Provided");
     }
-}
+    await db.collection("restaurants").doc(info.id).set({
+      name: info.name,
+      email: info.email,
+      RestaurantName: info.restaurantName,
+      country: info.country,
+      city: info.city,
+      pincode: info.pincode,
+      number: info.phone,
+      address: info.address,
+    });
+    return;
+  } catch (error) {
+    console.log(error.message);
+  }
+};

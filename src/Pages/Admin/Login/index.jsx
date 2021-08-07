@@ -35,7 +35,7 @@ const LoginPage = () => {
     return <Redirect to={redirect} />;
   }
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Container textAlign="center">
           <Header as='h2' color='teal' textAlign='center'>

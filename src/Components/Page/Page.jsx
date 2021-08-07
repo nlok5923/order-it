@@ -3,7 +3,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
 import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
-import DishCard from "../../Components/Cards/DishCard"
+import DishCard from "../Cards/DishCard"
 
 const properties = {
   duration: 3000,

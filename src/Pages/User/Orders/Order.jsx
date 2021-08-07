@@ -69,15 +69,15 @@ const OrderPage = () => {
     const { user, isLoading } = info;
     const [redirect, setredirect] = useState(null);
     
-    useEffect(() => {
-      if (user && !isLoading) {
-          setredirect("/user/login");
-      }
-    }, [user, isLoading]);
+    // useEffect(() => {
+    //   if (user && !isLoading) {
+    //       setredirect("/user/login");
+    //   }
+    // }, [user, isLoading]);
   
-    if (redirect) {
-      return <Redirect to={redirect} />;
-    }
+    // if (redirect) {
+    //   return <Redirect to={redirect} />;
+    // }
 
     return(
         <div>
