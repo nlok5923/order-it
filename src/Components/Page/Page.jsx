@@ -1,9 +1,11 @@
-import React from "react"
+import { React, useState, useEffect } from "react"
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
 import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
 import DishCard from "../Cards/DishCard"
+import { useParams } from "react-router";
+import { getRestaurantDishes, getRestaurantInformation } from "../../Services/Restaurent/RestaurantServices"
 
 const properties = {
   duration: 3000,
@@ -14,67 +16,20 @@ const properties = {
   pauseOnHover: true,
 };
 
-const dishes = [
-  {
-      name: "yoyo",
-      price: "500",
-      desc: 'you will love it',
-      discount: "10% off",
-      date: "04/04/2020",
-      status: "in transit",
-      details: ""
-  },
-  {
-      name: "yoyo",
-      price: "500",
-      desc: 'you will love it',
-      discount: "10% off",
-      date: "04/04/2020",
-      status: "in transit",
-      details: "",
-  },
-  {
-      name: "yoyo",
-      price: "500",
-      desc: 'you will love it',
-      discount: "10% off",
-      date: "04/04/2020",
-      status: "dispatched",
-      details: ""
-  },
-  {
-      name: "yoyo",
-      price: "500",
-      desc: 'you will love it',
-      discount: "10% off",
-      date: "04/04/2020",
-      status: "dispatched",
-      details: ""
-  },
-  {
-      name: "yoyo",
-      price: "500",
-      desc: 'you will love it',
-      discount: "10% off",
-      date: "04/04/2020",
-      status: "dispatched",
-      details: ""
-  },
-  {
-      name: "yoyo",
-      price: "500",
-      desc: 'you will love it',
-      discount: "10% off",
-      date: "04/04/2020",
-      status: "dispatched",
-      details: ""
-  }
-]
-
-
 const images = ["images/pizza.jpg","images/pizza.jpg","images/pizza.jpg","images/pizza.jpg","images/pizza.jpg"]
 
 const Page = () => {
+
+  const [dishes, setDishes] = useState([]);
+  const [restaurantInfo, setRestaurantInfo] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    getRestaurantDishes(id).then(data => setDishes(data));
+    getRestaurantInformation(id).then(data => setRestaurantInfo(data));
+    console.log(restaurantInfo);
+  },[])
+
   return (
     <>
         <Container>
@@ -84,16 +39,16 @@ const Page = () => {
           {images.map((data, index)=>{
             return(
              <div className="each-slide">
-             <img src={data} alt="food" className="food-slide-image" />
+             <img src={data} alt="food" className="food-slider-image" />
          </div>)
           })}
         </Slide>
       </div>
 
           <Header as="h1">
-            Restaurant Name
+            {restaurantInfo.RestaurantName}
             <Header.Subheader>
-           City | Country | 6:00 pm - 7:00 pm
+           {restaurantInfo.country} | {restaurantInfo.city} | {restaurantInfo.address} 
             </Header.Subheader>
             </Header>
             <Divider />

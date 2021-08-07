@@ -13,7 +13,7 @@ export const getRestaurants = async () => {
     try {
         let data = [];
         let ref = await db.collection("restaurants").get();  
-        ref.forEach((doc) => {
+        ref.forEach(async (doc) => {
             data.push({
                 RestaurantName: doc.data().RestaurantName,
                 country: doc.data().country,
@@ -21,9 +21,24 @@ export const getRestaurants = async () => {
                 pincode: doc.data().pincode,
                 address: doc.data().address,
                 phone: doc.data().phone,
+                restaurantId: doc.id
                 // description: data.doc().description
             })
         })
+        for(let i=0;i<data.length;i++) {
+            // let imageUrl = await getImageUrl("restaurants", data[i].fileName);
+            // data[i].firebaseImage = imageUrl;
+            let imageUrl = [];
+            if(data[i].fileNames) {
+            data[i].fileNames.map(async name => { 
+                let image = await getImageUrl("restaurants", name);
+                imageUrl.push(image)
+            }); 
+            data[i].firebaseImages = [...imageUrl];
+            }
+
+            console.log(data[i])
+        }
         return data;
       } catch (error) {
           console.log(error.message);
@@ -57,3 +72,24 @@ export const getRestaurants = async () => {
           return error.message;
       }  
  };
+
+
+ export const getRestaurantInformation = async (id) => {
+     try {
+         let restaurantData;
+         await db.collection("restaurants").doc(id).get().then(data => restaurantData = data.data())
+         return restaurantData;
+     } catch(err) {
+         console.log(err.message);
+         return err.message;
+     }
+}
+
+export const getRestaurantImagesUrl = async (id) => {
+    try {
+        let imageUrl = [];
+    } catch(err){
+        console.log(err.message);
+        return err.message;
+    }
+}
