@@ -67,7 +67,7 @@ const Navbar = () => {
             <Form.Field>
               <input
                 className="search-bar-width"
-                // style={{ width: "60vw" }}
+                style={{ width: "40vw" }}
                 type="text"
                 placeholder="Enter food name/restaurant name"
               />
