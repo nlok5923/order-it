@@ -12,13 +12,13 @@ const Page = () => {
       <div className="slide-container">
         <Slide>
           <div className="each-slide">
-              <img src="/images/google-logo.jpg" alt="food" className="food-image" />
+              <img src="/images/pizza.jpg" alt="food" className="food-slide-image" />
           </div>
           <div className="each-slide">
-              <img src="/images/google-logo.jpg" alt="food" className="food-image"/>
+              <img src="/images/google-logo.jpg" alt="food" className="food-slide-image"/>
           </div>
           <div className="each-slide">
-              <img src="/images/google-logo.jpg" alt="food" className="food-image"/>
+              <img src="/images/google-logo.jpg" alt="food" className="food-slide-image"/>
           </div>
         </Slide>
       </div>
