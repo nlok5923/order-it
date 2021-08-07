@@ -10,11 +10,11 @@ Heading,
 
 const Footer = () => {
 return (
-	<Box>
+	<Box style={{marginTop:"5%"}}>
 	<h1 style={{ color: "green",
 				textAlign: "center",
 				marginTop: "-50px" }}>
-		GeeksforGeeks: A Computer Science Portal for Geeks
+        Welcome to order it hope you liked our service
 	</h1>
 	<Container>
 		<Row>

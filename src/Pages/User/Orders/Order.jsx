@@ -1,6 +1,10 @@
 import React from "react"
 import OrderCard from "../../../Components/Cards/OrderCard"
 import { Container, Header } from "semantic-ui-react"
+import { useEffect, useContext, useState } from 'react';
+import { UserContext } from '../../../Providers/UserProvider'
+import { Redirect } from "react-router-dom";
+import Loader from "../../../Components/Loader/index"
 
 const dishes = [
     {
@@ -60,6 +64,21 @@ const dishes = [
 ]
 
 const OrderPage = () => {
+    
+    const info = useContext(UserContext);
+    const { user, isLoading } = info;
+    const [redirect, setredirect] = useState(null);
+    
+    useEffect(() => {
+      if (user && !isLoading) {
+          setredirect("/user/login");
+      }
+    }, [user, isLoading]);
+  
+    if (redirect) {
+      return <Redirect to={redirect} />;
+    }
+
     return(
         <div>
         <Container>
