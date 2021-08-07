@@ -3,10 +3,10 @@ import { Button, Container } from 'semantic-ui-react';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../Providers/UserProvider';
 import Loader from '../../../Components/Loader/index'
-import { Redirect} from "react-router-dom";
-import {isUser,isRestaurent} from '../../../Services/Utils';
+import { Redirect } from "react-router-dom";
+import { isUser, isRestaurent } from '../../../Services/Utils';
 import DishCard from "../../../Components/Cards/DishCard"
-import {  getRestaurantDishes } from "../../../Services/Restaurent/RestaurantServices"
+import { getRestaurantDishes } from "../../../Services/Restaurent/RestaurantServices"
 
 const dishes = [
     {
@@ -63,7 +63,7 @@ const dishes = [
         status: "dispatched",
         details: ""
     }
-  ]
+]
 
 const Dashboard = () => {
     const info = useContext(UserContext);
@@ -74,7 +74,7 @@ const Dashboard = () => {
 
     const handleUser = async () => {
         let isuser = await isUser(user.uid)
-        if (isuser){
+        if (isuser) {
             setredirect("/");
             return;
         }
@@ -82,17 +82,19 @@ const Dashboard = () => {
         if (!isrestaurant) {
             setredirect("/restaurant/details");
         } else {
-            getRestaurantDishes(user.uid).then(data => { console.log(data); setrestaurantDishes(data) });
-            console.log(restaurantDishes)
+            getRestaurantDishes(user.uid).then(data => {
+                console.log(data); 
+                setrestaurantDishes(data);
+                setLoading(false);
+            });
         }
-        setLoading(false);
     }
 
     useEffect(() => {
         if (!isLoading) {
-            if(!user){
+            if (!user) {
                 setredirect("/");
-            }else{
+            } else {
                 handleUser();
             }
         }
@@ -104,10 +106,10 @@ const Dashboard = () => {
         <div>
             {(isLoading || loading) && <Loader />}
             <Container>
-            <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
-            {/* {dishes.map((data, index) => <DishCard info = {data} isRestaurant={true} />)} */}
-            <h1></h1>
-            {/* {restaurantDishes.dishInfo.map((data, index) => <DishCard info={data} />)} */}
+                <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
+                {/* {dishes.map((data, index) => <DishCard info = {data} isRestaurant={true} />)} */}
+                <h1></h1>
+                {/* {restaurantDishes.dishInfo.map((data, index) => <DishCard info={data} />)} */}
             </Container>
         </div>
     );
