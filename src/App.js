@@ -9,7 +9,9 @@ import DishPage from "./Components/Page/Page"
 import UserCart from "./Pages/User/Cart/Cart";
 import PaymentMethod from "./Pages/User/PaymentMethod/PaymentMethod";
 import ShippingForm from "./Pages/User/Shipping/Shipping";
+import UserOrders from "./Pages/User/Orders/Order"
 import 'semantic-ui-css/semantic.min.css'
+import Footer from "./Components/Footer/Footer";
 import UserProvider from './Providers/UserProvider';
 
 const App = () => {
@@ -27,9 +29,11 @@ const App = () => {
               <Route exact path="/user/cart" component={UserCart} />
               <Route exact path="/user/cart/payment" component={PaymentMethod} />
               <Route exact path="/user/cart/shipping" component={ShippingForm} />
+              <Route exact path="/user/orders" component={UserOrders} />
               <Route exact path="/dish" component={DishPage} />
               <Route exact path="/" component={LandingPage} />
             </Switch>
+            <Footer />
         </Router>
       </UserProvider>
     </div>
