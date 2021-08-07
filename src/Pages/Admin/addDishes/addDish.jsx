@@ -2,8 +2,9 @@ import './addDish.scss';
 import { useState, useEffect, useContext } from 'react';
 import Loader from '../../../Components/Loader/index';
 import { UserContext } from '../../../Providers/UserProvider';
-import { isUser, isRestaurent } from "../../../Services/Utils";
 import { Redirect } from "react-router-dom";
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
 import {
     Button,
     Form,
@@ -27,8 +28,8 @@ const AddDish = () => {
         { name: "price", labelName: "Actual Price", type: "text", isTextArea: false },
         { name: "discount", labelName: "Discount (%)", type: "number", isTextArea: false },
         { name: "description", labelName: "Description", placeholder: "Write Dish Description Here.", isTextArea: true }
-    ]  
-    const [loadingBtn,setLoadingBtn] = useState(false);
+    ]
+    const [loadingBtn, setLoadingBtn] = useState(false);
     const [errMessage, seterrMessage] = useState("");
     const [dishInfo, setDishInfo] = useState({})
     const renderFormElements = () => {
@@ -38,7 +39,7 @@ const AddDish = () => {
                     {ele.labelName}
                 </label>
                 {ele.isTextArea ?
-                    <TextArea placeholder={ele.placeholder} style={{ minHeight: 100 }} />
+                    <TextArea required placeholder={ele.placeholder} style={{ minHeight: 150 }} />
                     :
                     <input
                         type={ele.type}
@@ -51,6 +52,24 @@ const AddDish = () => {
         ));
     };
 
+    const renderImages = () => {
+        return (
+            <div className="slide-container">
+                <Slide>
+                    <div className="each-slide">
+                        <img src="/images/pizza.jpg" alt="food" className="food-image" />
+                    </div>
+                    <div className="each-slide">
+                        <img src="/images/pizza.jpg" alt="food" className="food-image" />
+                    </div>
+                    <div className="each-slide">
+                        <img src="/images/pizza.jpg" alt="food" className="food-image" />
+                    </div>
+                </Slide>
+            </div>
+        );
+    }
+
     const setInfo = (e) => {
         setDishInfo({
             ...dishInfo,
@@ -59,13 +78,11 @@ const AddDish = () => {
     };
 
     const handleUser = async () => {
-        let isuser = await isUser(user.uid);
-        if (isuser) {
+        if (user.isUser) {
             setredirect("/");
             return;
         }
-        let isrestaurant = await isRestaurent(user.uid);
-        if (!isrestaurant) {
+        if (!user.isRestaurant) {
             setredirect("/restaurant/details");
         }
         setLoading(false);
@@ -81,7 +98,7 @@ const AddDish = () => {
         }
     }, [user, isLoading]);
 
-    const handleSubmit = ()=>{
+    const handleSubmit = () => {
 
     }
 
@@ -95,11 +112,14 @@ const AddDish = () => {
                 <Container>
                     <div>
                         <Segment>
+                            <Header as="h2">
+                                <Header.Content>Add Your Dish Here.</Header.Content>
+                            </Header>
                             <Form error={!!errMessage}>
                                 {renderFormElements()}
-                                <Button primary type="submit" onClick={handleSubmit}>
-                                    <Icon name="save" />
-                                    {loadingBtn ? "Adding..." : "Register"}
+                                {renderImages()}
+                                <Button color="red" type="submit" onClick={handleSubmit}>
+                                    {loadingBtn ? "Adding..." : "Add"}
                                 </Button>
                                 <Message error header="Oops!!" content={errMessage} />
                             </Form>

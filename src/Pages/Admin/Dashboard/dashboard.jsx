@@ -4,7 +4,6 @@ import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../Providers/UserProvider';
 import Loader from '../../../Components/Loader/index'
 import { Redirect } from "react-router-dom";
-import {isUser,isRestaurent} from "../../../Services/Utils"
 
 const Dashboard = () => {
     const info = useContext(UserContext);
@@ -13,13 +12,11 @@ const Dashboard = () => {
     const [redirect, setredirect] = useState(null);
 
     const handleUser = async () => {
-        let isuser = await isUser(user.uid);
-        if (isuser){
+        if (user.isUser){
             setredirect("/");
             return;
         }
-        let isrestaurant = await isRestaurent(user.uid);
-        if (!isrestaurant) {
+        if (!user.isRestaurant) {
             setredirect("/restaurant/details");
         } else {
             

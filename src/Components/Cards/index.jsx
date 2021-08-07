@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image, Label } from 'semantic-ui-react'
+import { Card, Icon, Image, Label, Button } from 'semantic-ui-react'
 
 const CardExampleCard = (props) => (
   <Card>
@@ -8,11 +8,24 @@ const CardExampleCard = (props) => (
     <Card.Content>
       <Card.Header>{props.info.name}</Card.Header>     
       <Card.Description>
-          {props.info.desc}
+        <span className='date'><strike>{props.info.price}</strike> Rs 100</span>
       </Card.Description>
-      <Card.Meta>
-        <span className='date'>{props.info.price}</span>
-      </Card.Meta>
+    </Card.Content>
+    <Card.Content>
+      {props.isCart ?  
+      <div>
+      <Button
+          icon="trash"
+          color="red"
+          floated="right"
+        />
+        <Button 
+        icon="buy"
+        color="green"
+        floated="right"
+        />
+      </div>       
+       : null }
     </Card.Content>
   </Card>
 )

@@ -3,7 +3,6 @@ import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../../Providers/UserProvider'
 import { Grid, Header, Message, Container, Segment } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
-import {isUser,isRestaurent} from '../../../Services/Utils'
 import "./Login.scss"
 
 const LoginPage = () => {
@@ -12,13 +11,11 @@ const LoginPage = () => {
   const [redirect, setredirect] = useState(null);
 
   const handleUser = async()=>{
-    let isuser = await isUser(user.uid);
-    if(isuser){
+    if(user.isUser){
       setredirect("/");
       return;
     }
-    let isrestaurant = await isRestaurent(user.uid);
-    if(isrestaurant){
+    if(user.isRestaurant){
       setredirect("/restaurant");
     }else{
       setredirect("/restaurant/details")

@@ -40,7 +40,15 @@ const Navbar = () => {
             <Menu.Item>
             <Form>
                 <Form.Field>
-                    <input type="text" placeholder="search food" />
+                    <input type="text" placeholder="Enter pincode" />
+                </Form.Field>
+            </Form>
+            </Menu.Item>
+
+            <Menu.Item>
+            <Form>
+                <Form.Field>
+                    <input type="text" placeholder="Enter food name" />
                 </Form.Field>
             </Form>
             </Menu.Item>
