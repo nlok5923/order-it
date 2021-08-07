@@ -1,5 +1,7 @@
 import Card from "../Components/Cards/index"
-import { Container, Grid } from 'semantic-ui-react'
+import { Container, Grid, Header } from 'semantic-ui-react'
+import { getRestaurants } from "../Services/Restaurent/RestaurantServices"
+import { useEffect, useState } from "react"
 
 const marginTop = { marginTop:"5%" }
 
@@ -47,12 +49,19 @@ const dishes = [
         address: "IIIT Vadodara"
     }
 ]
-const Home = () =>{
+const Home = () => {
+
+    const [restaurant, setRestaurants] = useState([]);
+    useEffect(() => {
+        getRestaurants()
+        .then(data => setRestaurants(data));
+    },[])
     return(
         <div>
-            <Container style={marginTop}>
+            <Container >
+                <Header as="h1">Search best foods </Header>
             <Grid stackable columns={4}>
-              {dishes
+              {restaurant
                   .map((data) => {
                     return (
                       <Grid.Column>

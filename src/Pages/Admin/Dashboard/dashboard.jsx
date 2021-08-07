@@ -1,9 +1,67 @@
 import './dashboard.scss';
-import { Button } from 'semantic-ui-react';
+import { Button, Container } from 'semantic-ui-react';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../../Providers/UserProvider';
 import Loader from '../../../Components/Loader/index'
 import { Redirect } from "react-router-dom";
+import DishCard from "../../../Components/Cards/DishCard"
+
+const dishes = [
+    {
+        name: "yoyo",
+        price: "500",
+        desc: 'you will love it',
+        discount: "10% off",
+        date: "04/04/2020",
+        status: "in transit",
+        details: ""
+    },
+    {
+        name: "yoyo",
+        price: "500",
+        desc: 'you will love it',
+        discount: "10% off",
+        date: "04/04/2020",
+        status: "in transit",
+        details: "",
+    },
+    {
+        name: "yoyo",
+        price: "500",
+        desc: 'you will love it',
+        discount: "10% off",
+        date: "04/04/2020",
+        status: "dispatched",
+        details: ""
+    },
+    {
+        name: "yoyo",
+        price: "500",
+        desc: 'you will love it',
+        discount: "10% off",
+        date: "04/04/2020",
+        status: "dispatched",
+        details: ""
+    },
+    {
+        name: "yoyo",
+        price: "500",
+        desc: 'you will love it',
+        discount: "10% off",
+        date: "04/04/2020",
+        status: "dispatched",
+        details: ""
+    },
+    {
+        name: "yoyo",
+        price: "500",
+        desc: 'you will love it',
+        discount: "10% off",
+        date: "04/04/2020",
+        status: "dispatched",
+        details: ""
+    }
+  ]
 
 const Dashboard = () => {
     const info = useContext(UserContext);
@@ -39,7 +97,10 @@ const Dashboard = () => {
     return (
         <div>
             {(isLoading || loading) && <Loader />}
+            <Container>
             <Button className="add-item-btn" color="red" content='Add Dishes' icon='add' labelPosition='left' />
+            {dishes.map((data, index) => <DishCard info = {data} isRestaurant={true} />)}
+            </Container>
         </div>
     );
 }
