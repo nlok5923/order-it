@@ -1,7 +1,10 @@
-import Card from "../Components/Cards/index"
-import { Container, Grid } from 'semantic-ui-react'
+import React from "react"
+import { Container, Header, Grid, Button } from "semantic-ui-react";
+import Table from "../../../Components/Table/Table"
 
 const marginTop = { marginTop:"5%" }
+
+const containerHeight = { height: "100vh" }
 
 const dishes = [
     {
@@ -41,25 +44,20 @@ const dishes = [
         discount: "10% off"
     }
 ]
-const Home = () =>{
+
+const UserCart = () => {
     return(
-        <div>
-            <Container style={marginTop}>
-            <Grid stackable columns={4}>
-              {dishes
-                  .map((data) => {
-                    return (
-                      <Grid.Column>
-                        <Container fluid textAlign="center">
-                            <Card info={data} />
-                        </Container>
-                      </Grid.Column>
-                    );
-                  })}
-            </Grid>
-            </Container>
-        </div>
-    );
+    <div>
+           <div style={containerHeight}>
+               <Container style={marginTop}>
+          <Header as="h1" >All your Dishes are visible here 🤓 </Header>
+          <Table info={dishes} />
+          <Header as="h2">Total: 1234</Header>
+          <Button floated="right" color="green">Procced to checkout</Button>
+          </Container>
+    </div>
+    </div>
+    )
 }
 
-export default Home;
+export default UserCart;

@@ -6,6 +6,7 @@ import LandingPage from "./Pages/index";
 import RestaurantDashboard from "./Pages/Admin/Dashboard/dashboard"
 import Navbar from "./Components/Navigation/Navbar/Navbar";
 import DishPage from "./Components/Page/Page"
+import UserCart from "./Pages/User/Cart/Cart";
 import 'semantic-ui-css/semantic.min.css'
 import UserProvider from './Providers/UserProvider';
 
@@ -21,6 +22,7 @@ const App = () => {
               <Route exact path="/restaurant/details" component={AdminDetailsForm} />
               <Route exact path="/restaurant" component={RestaurantDashboard} />
               <Route exact path="/admin/details" component={AdminDetailsForm} />
+              <Route exact path="/user/cart" component={UserCart} />
               <Route exact path="/dish" component={DishPage} />
               <Route exact path="/" component={LandingPage} />
             </Switch>
