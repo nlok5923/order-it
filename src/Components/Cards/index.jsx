@@ -8,7 +8,7 @@ const CardExampleCard = (props) => (
     <Card.Content>
       <Card.Header>{props.info.name}</Card.Header>     
       <Card.Description>
-        <span className='date'><strike>{props.info.price}</strike> Rs 100</span>
+        <span>{props.info.address}</span>
       </Card.Description>
     </Card.Content>
     <Card.Content>

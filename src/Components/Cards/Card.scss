@@ -1,0 +1,17 @@
+.dish-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 20px;
+}
+
+.dish-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

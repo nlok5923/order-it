@@ -8,37 +8,43 @@ const dishes = [
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10% off"
+        discount: "10% off",
+        address: "IIIT Vadodara"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10% off"
+        discount: "10% off",
+        address: "IIIT Vadodara"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10% off"
+        discount: "10% off",
+        address: "IIIT Vadodara"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10% off"
+        discount: "10% off",
+        address: "IIIT Vadodara"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10% off"
+        discount: "10% off",
+        address: "IIIT Vadodara"
     },
     {
         name: "yoyo",
         price: "500",
         desc: 'you will love it',
-        discount: "10% off"
+        discount: "10% off",
+        address: "IIIT Vadodara"
     }
 ]
 const Home = () =>{
