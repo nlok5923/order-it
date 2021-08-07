@@ -5,7 +5,7 @@ import "./Page.scss"
 import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
 
 const Page = () => {
-    return (
+  return (
     <>
         <Container>
     <Segment>
@@ -23,17 +23,17 @@ const Page = () => {
         </Slide>
       </div>
 
-      <Header as="h1">Restaurant Name</Header>
-      <p> City | Country | Dish name</p> 
-      <Button floated="right"> Add to cart </Button>
-      <Button floated="right"> Buy Now </Button>
-      <Divider />
-      <Header as="h2">Rs 500 at 10% discount </Header>
-    </Segment>
+          <Header as="h1">Restaurant Name</Header>
+          <p> City | Country | Dish name</p>
+          <Button floated="right"> Add to cart </Button>
+          <Button floated="right"> Buy Now </Button>
+          <Divider />
+          <Header as="h2">Rs 500 at 10% discount </Header>
+        </Segment>
       </Container>
 
-</>
-    )
+    </>
+  )
 }
 
 export default Page;

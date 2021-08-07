@@ -1,9 +1,7 @@
 import { useState,useEffect,useContext } from "react";
-import {isUser,isRestaurent} from '../../../Services/Utils'
 import NavbarLoggedOut from "../NavGeneral/NavGeneral";
 import NavbarAdminLogged from "../NavAdminLogged/NavAdminLogged";
 import NavbarUserLogged from "../NavUserLogged/NavUserLogged";
-import Loader from '../../Loader/index';
 import { UserContext } from "../../../Providers/UserProvider";
 import "./Navbar.scss"
 
@@ -21,14 +19,12 @@ const Navbar = ()=>{
             setRestaurantLogged(false);
             setLoggedOut(true);
         }else{
-            let isuser = await isUser(user.uid);
-            if(isuser){
+            if(user.isUser){
                 setRestaurantLogged(false);
                 setLoggedOut(false);
                 setUserLogged(true);
             }else{
-                let isrestaurant = await isRestaurent(user.uid);
-                if(isrestaurant){
+                if(user.isRestaurant){
                     setUserLogged(false);
                     setLoggedOut(false);
                     setRestaurantLogged(true);
@@ -50,7 +46,6 @@ const Navbar = ()=>{
 
     return (
         <div>
-            {(isLoading || loading) && <Loader />}
             {!isLoading && !loading && loggedOut && <NavbarLoggedOut />}
             {!isLoading && !loading && userLogged && <NavbarUserLogged />}
             {!isLoading && !loading && restaurantLogged && <NavbarAdminLogged />}

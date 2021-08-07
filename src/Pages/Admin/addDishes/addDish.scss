@@ -1,0 +1,33 @@
+.each-slide {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.food-slide-image {
+    width: 70%;
+}
+
+#upload-img{
+    display:none
+}
+
+.upload-img-btn{
+    background-color: rgb(192, 55, 55);
+    color:white;
+    padding: 7px;
+    cursor: pointer;
+}
+
+.slide-container{
+    margin: 40px 0;
+}
+.delete-img{
+    cursor:pointer;
+    position: absolute;
+    right: 20px;
+    top: 0;
+    color: red;
+}

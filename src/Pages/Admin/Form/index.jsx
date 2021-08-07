@@ -1,9 +1,7 @@
 import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../../Providers/UserProvider'
 import { Redirect } from "react-router-dom";
-import { isUser, isRestaurent } from '../../../Services/Utils'
 import { saveRestaurantDetail } from '../../../Services/Restaurent/RestaurentAuth';
-
 import {
   Button,
   Form,
@@ -75,13 +73,11 @@ const SignupForm = () => {
   }
 
   const handleUser = async()=>{
-    let isuser = await isUser(user.uid);
-    if(isuser){
+    if(user.isUser){
       setredirect("/");
       return;
     }
-    let isrestaurant = await isRestaurent(user.uid);
-    if(isrestaurant){
+    if(user.isRestaurant){
       setredirect("/restaurant");
     }else{
       setAdminInfo({

@@ -18,9 +18,9 @@ const Navbar = () => {
             break;
         case "uregister": history.push("/user/login")
             break;
-        case "alogin": history.push("/admin/login")
+        case "rlogin": history.push("/admin/login")
             break;
-        case "aregister": history.push("/admin/login")
+        case "rregister": history.push("/admin/login")
             break;
         default:
     }
