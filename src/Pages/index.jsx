@@ -5,50 +5,6 @@ import { useEffect, useState } from "react"
 
 const marginTop = { marginTop:"5%" }
 
-const dishes = [
-    {
-        name: "yoyo",
-        price: "500",
-        desc: 'you will love it',
-        discount: "10% off",
-        address: "IIIT Vadodara"
-    },
-    {
-        name: "yoyo",
-        price: "500",
-        desc: 'you will love it',
-        discount: "10% off",
-        address: "IIIT Vadodara"
-    },
-    {
-        name: "yoyo",
-        price: "500",
-        desc: 'you will love it',
-        discount: "10% off",
-        address: "IIIT Vadodara"
-    },
-    {
-        name: "yoyo",
-        price: "500",
-        desc: 'you will love it',
-        discount: "10% off",
-        address: "IIIT Vadodara"
-    },
-    {
-        name: "yoyo",
-        price: "500",
-        desc: 'you will love it',
-        discount: "10% off",
-        address: "IIIT Vadodara"
-    },
-    {
-        name: "yoyo",
-        price: "500",
-        desc: 'you will love it',
-        discount: "10% off",
-        address: "IIIT Vadodara"
-    }
-]
 const Home = () => {
 
     const [restaurant, setRestaurants] = useState([]);
