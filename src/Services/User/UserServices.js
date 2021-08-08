@@ -83,10 +83,35 @@ export const deleteCartItem = async (userid, id) => {
 
 export const placeOrder = async(userId,shippingDetail,items)=>{
     try {
-        console.log(items)
-        // db.collection("users").doc(userId).collection("orders").add({
-
-        // })
+        let orderItem = [];
+        let date = new Date();
+        let restaurantId = items[0].restaurantId
+        items.forEach((item)=>{
+            orderItem.push({
+                discount:item.data.discount,
+                price:item.data.price,
+                quantity:item.quantity,
+                dishId:item.dishId
+            })
+        })
+        let data = await db.collection("users").doc(userId).collection("orders").add({
+            orderItem,
+            date,
+            shippingDetail,
+            restaurantId,
+            status:"pending"
+        })
+        await db.collection("restaurants").doc(restaurantId).collection("orders").doc(data.id).set({
+            userId,
+            date,
+            shippingDetail,
+            orderItem,
+            status:"pending"
+        })
+        for(let item of items){
+            await db.collection("users").doc(userId).collection("cart").doc(item.itemId).delete();
+        }
+        return;
     } catch (error) {
         console.log(error.message);
     }

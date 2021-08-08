@@ -26,7 +26,12 @@ const ShippingForm = () => {
   const [redirect, setRedirect] = useState(null);
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
-  const [shippingDetail,setShippingDetail] = useState({});
+  const [shippingDetail,setShippingDetail] = useState({
+    address:"",
+    country:"",
+    city:"",
+    pincode:""
+  });
   const [loadingBtn,setLoadingBtn] = useState(false);
   const history = useHistory();
        
@@ -66,9 +71,9 @@ const ShippingForm = () => {
     <Redirect to={redirect} />
   }
 
-
   const [show, setShow] = useState(false)
   const [errMessage, setErrMessage] = useState("");
+  
   const renderFormElements = () => {
     return formElement.map((ele, index) => (
       <Form.Field>
