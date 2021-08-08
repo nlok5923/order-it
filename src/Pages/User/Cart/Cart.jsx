@@ -5,6 +5,7 @@ import { getUserCart, getCartItem } from "../../../Services/User/UserServices"
 import { UserContext } from '../../../Providers/UserProvider'
 import { Redirect } from "react-router";
 import Loader from "../../../Components/Loader/index"
+import { NavLink } from "react-router-dom";
 const marginTop = { marginTop: "5%" };
 
 const containerHeight = { height: "100vh" };
@@ -62,14 +63,11 @@ const UserCart = () => {
     setCartItems(cartitems);
     console.log(cartitems)
     let itemsData = [];
-    cartItems.map(async item => {
+    cartitems.map(async item => {
       let itemInfo = await getCartItem(item.restaurantId, item.dishId);
-      itemsData.push({ data:itemInfo, quantity: item.quantity });
-      console.log(itemsData)
-      // setItems(prevState => [...prevState, {}]);
+      setItems(prevState => [...prevState, { data: itemInfo, quantity: item.quantity }]);
     });
     setItems(itemsData);
-    console.log("ye item hai", items)
     setLoading(false);
   }
 
@@ -88,17 +86,18 @@ const UserCart = () => {
 
   return (
     <>
-    {loading && <Loader />}
-    {!loading &&  <div>
+    {loading && (items.length === 0) && <Loader />}
+    {!loading &&  (items.length > 0) && <div>
       <div style={containerHeight}>
         <Container style={marginTop}>
           <Header as="h1">All your Dishes are visible here 🤓 </Header>
           <Table info={items} />
-          {items.length}
           <Header as="h2">Total: 1234</Header>
+          <NavLink activeClassName="current" to="/user/cart/payment" >
           <Button floated="right" color="green">
             Procced to checkout
           </Button>
+          </NavLink>
         </Container>
       </div>
     </div>}

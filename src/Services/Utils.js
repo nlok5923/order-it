@@ -43,3 +43,7 @@ export const isRestaurent = async(id)=>{
     const restaurentRef = await db.collection("restaurants").doc(id).get();
     return restaurentRef.exists;
 }
+
+export const getAmountSum = () => {
+    
+}

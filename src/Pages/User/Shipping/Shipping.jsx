@@ -2,6 +2,8 @@ import React from "react"
 import { Container, Header, Button, Form, Icon ,Message, Segment } from "semantic-ui-react";
 import {  useState } from "react"
 import Table from "../../../Components/Table/Table"
+import SweetAlert from "sweetalert-react"
+import 'sweetalert/dist/sweetalert.css';
 
 const formElement = [
     { name: "address", type: "text" },
@@ -56,7 +58,7 @@ const formElement = [
 ]
 
 const ShippingForm = () => {
-
+  const [show, setShow] = useState(false)
     const [errMessage, setErrMessage] = useState("");
     const renderFormElements = () => {
         return formElement.map((ele, index) => (
@@ -76,9 +78,17 @@ const ShippingForm = () => {
     
     return(
         <div>
-               <Container>
+      <Container>
       <div>
         <Segment>
+        <SweetAlert
+        show={show}
+        type="success"
+        title="Order Confirmed"
+        text="Sit back and relax"
+        onConfirm={() => setShow(false)}
+      />
+
           <Header as="h2" icon textAlign="center">
             <Icon name="address book outline" circular />
             <Header.Content>Enter shipping details </Header.Content>
@@ -106,7 +116,7 @@ const ShippingForm = () => {
               </Header>
 
               <Header as="h2"> total Amount: 1000 </Header>
-              <Button color="green"> Order now </Button>
+              <Button color="green" onClick={() => setShow(true)}> Order now </Button>
           </Segment>
       </div>
 

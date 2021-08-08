@@ -42,10 +42,10 @@ export const addDish = async(info)=>{
             dishName,
             price,
             discount,
-            description,
+           description,
             fileName,
             searchWord
-        })
+        }) 
         return;
     } catch (error) {
         console.log(error.message);
