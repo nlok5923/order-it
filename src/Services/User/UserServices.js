@@ -83,8 +83,10 @@ export const deleteCartItem = async (userid, id) => {
 
 export const placeOrder = async(userId,shippingDetail,items)=>{
     try {
-        items.sort((a,b)=>a.restaurantId - b.restaurantId)
+        console.log(items)
+        // db.collection("users").doc(userId).collection("orders").add({
 
+        // })
     } catch (error) {
         console.log(error.message);
     }
