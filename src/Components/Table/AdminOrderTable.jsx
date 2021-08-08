@@ -1,15 +1,9 @@
-import React from "react"
+import { React, useEffect, useState } from "react"
 import { Table, Dropdown } from "semantic-ui-react"
 import "./Table.scss"
 import { getDiscountedPrice } from "../../Services/Utils"
 
 const Orders = (props) => {
-
-const status = [
-    {key:1 , text: "dispatced", value: "dispatched"},
-    {key:2 , text: "processing", value: "processing"},
-    {key:3 , text: "delivered", value: "delivered"},
-]
     return(
     <div>
         <div>
@@ -20,7 +14,6 @@ const status = [
                 <Table.HeaderCell>Price</Table.HeaderCell>
                 <Table.HeaderCell>discount</Table.HeaderCell>
                 <Table.HeaderCell>discounted Price</Table.HeaderCell>
-                <Table.HeaderCell>Update Status</Table.HeaderCell>
                 <Table.HeaderCell>Quantity</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -35,13 +28,7 @@ const status = [
                     {element.discountedPrice === undefined ? getDiscountedPrice(element.price, element.discount) : element.discountedPrice}
                     
                     </Table.Cell>
-                  <Table.Cell>
-                      <Dropdown 
-                      clearable
-                      options = {status}
-                      placeholder="Set order status"
-                      />
-                  </Table.Cell>
+                  
                   <Table.Cell>
                       {element.quantity}
                   </Table.Cell>

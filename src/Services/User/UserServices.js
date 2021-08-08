@@ -91,7 +91,8 @@ export const placeOrder = async(userId,shippingDetail,items)=>{
                 discount:item.data.discount,
                 price:item.data.price,
                 quantity:item.quantity,
-                dishId:item.dishId
+                dishId:item.dishId,
+                dishName:item.data.dishName
             })
         })
         let data = await db.collection("users").doc(userId).collection("orders").add({
@@ -112,6 +113,21 @@ export const placeOrder = async(userId,shippingDetail,items)=>{
             await db.collection("users").doc(userId).collection("cart").doc(item.itemId).delete();
         }
         return;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+export const getUserOrder = async(id)=>{
+    try {
+        let ref = await db.collection("users").doc(id).collection("orders").get();
+        let data = [];
+        ref.forEach((doc)=>[
+            data.push({
+                date:doc.data().date,
+                shippingDetail:doc.data().shippingDetails
+            })
+        ])
     } catch (error) {
         console.log(error.message);
     }
