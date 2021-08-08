@@ -50,13 +50,14 @@ const OrderCard = (props) => {
                 basic
                 floated="left"
                 content="Add to cart"
+                onClick={() => props.addDishes(props.info.dishId)}
                 color="red"
               />
             )}
           </div>
           <div className="dish-info-img">
             <img
-              src="/images/pizza.jpg"
+              src={props.info.firebaseImage}
               style={{ float: "right" }}
               alt="pizza"
               className="dish-image"

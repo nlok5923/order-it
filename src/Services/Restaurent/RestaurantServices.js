@@ -33,6 +33,8 @@ export const getRestaurants = async() => {
                 data[i].fileNames.map(async name => {
                     let image = await getImageUrl("restaurants", name);
                     imageUrl.push(image)
+                    console.log("this is alled ")
+                    console.log(image);
                 });
                 data[i].firebaseImages = [...imageUrl];
             }

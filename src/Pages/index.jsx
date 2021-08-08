@@ -1,6 +1,6 @@
 import Card from "../Components/Cards/index"
 import { Container, Grid, Header } from 'semantic-ui-react'
-import { getRestaurants } from "../Services/Restaurent/RestaurantServices"
+import { getRestaurants, getRestaurantImagesUrl } from "../Services/Restaurent/RestaurantServices"
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../Providers/UserProvider";
 import { isRestaurent } from '../Services/Utils'
@@ -22,6 +22,7 @@ const Home = () => {
     setLoadingData(true);
     let data = await getRestaurants();
     setRestaurants(data)
+    console.log(data);
     setLoadingData(false);
   }
 
