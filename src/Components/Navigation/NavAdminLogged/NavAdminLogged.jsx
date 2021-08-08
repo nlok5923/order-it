@@ -19,6 +19,9 @@ const Navbar = () => {
         signOut();
         history.push("/");
         break;
+      case "orders":
+        history.push("/admin/orders");
+        break;
       default:
     }
   };
