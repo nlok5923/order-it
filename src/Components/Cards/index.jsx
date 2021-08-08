@@ -18,9 +18,9 @@ const CardExampleCard = (props) => {
         </Label>
       ) : null}
       {images.length > 0 ? (
-        <Image src={images[0]} wrapped ui={false} />
+        <img src={images[0]} wrapped ui={false} style={{  height: "300px", width:"260px" }} alt="card" />
       ) : (
-        <Image src={"/images/pizza.jpg"} wrapped ui={false} />
+        <img src={"/images/pizza.jpg"} wrapped ui={false} style={{  height: "300px", width:"260px" }} alt="card" />
       )}
       <Card.Content>
         <Card.Header>{props.info.RestaurantName}</Card.Header>

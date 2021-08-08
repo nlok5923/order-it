@@ -48,6 +48,7 @@ const OrderCard = (props) => {
               <Button
                 icon="add"
                 basic
+                className="add-to-cart-btn"
                 floated="left"
                 content="Add to cart"
                 onClick={() => props.addDishes(props.info.dishId)}
