@@ -54,12 +54,15 @@ export const getUserCart = async (uid) => {
 
 export const getCartItem = async (restId, id) => {
     try {
-        let cartRef = await db.collection("restaurants").doc(restId).collection("dishes").doc(id).get();
+        let ref = await db.collection("restaurants").doc(restId);
+        let tem_ref = await ref.get();
+        let cartRef = await ref.collection("dishes").doc(id).get();
         let data = cartRef.data();
         let price = parseInt(cartRef.data().price);
         let discount = parseInt(cartRef.data().discount);
         let discountedPrice = parseInt(price - price*discount/100);
         data.discountedPrice = discountedPrice;
+        data.restaurantName = tem_ref.data().RestaurantName;
         return data;
     } catch(err) {
         console.log(err.message);
@@ -81,7 +84,7 @@ export const deleteCartItem = async (userid, id) => {
 export const placeOrder = async(userId,shippingDetail,items)=>{
     try {
         items.sort((a,b)=>a.restaurantId - b.restaurantId)
-        
+
     } catch (error) {
         console.log(error.message);
     }

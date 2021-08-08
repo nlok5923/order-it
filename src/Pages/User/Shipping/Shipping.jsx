@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react"
 import Table from "../../../Components/Table/Table"
 import SweetAlert from "sweetalert-react"
 import 'sweetalert/dist/sweetalert.css';
+import { useParams } from "react-router";
 import { getUserCart, getCartItem,placeOrder } from "../../../Services/User/UserServices"
 import { UserContext } from '../../../Providers/UserProvider'
 import { Redirect } from "react-router";
@@ -18,7 +19,7 @@ const formElement = [
 ]
 
 const ShippingForm = () => {
-
+  const {restaurantId} = useParams();
   const info = useContext(UserContext);
   const { user, isLoading } = info;
   const [redirect, setRedirect] = useState(null);
@@ -30,6 +31,7 @@ const ShippingForm = () => {
   const fetchData = async () => {
     setLoading(true);
     let cartitems = await getUserCart(user.uid);
+    cartitems = cartitems.filter((item)=>item.restaurantId===restaurantId)
     let itemsData = [];
     for(let i=0;i<cartitems.length;i++){
       let itemInfo = await getCartItem(cartitems[i].restaurantId, cartitems[i].dishId);
