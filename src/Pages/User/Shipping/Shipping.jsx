@@ -8,8 +8,9 @@ import { getUserCart, getCartItem,placeOrder } from "../../../Services/User/User
 import { UserContext } from '../../../Providers/UserProvider'
 import { Redirect } from "react-router";
 import Loader from "../../../Components/Loader/index"
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router";
 import { getAmountSum } from "../../../Services/Utils"
+import toast, { Toaster } from "react-hot-toast";
 
 const formElement = [
   { name: "address", type: "text" },
@@ -27,6 +28,7 @@ const ShippingForm = () => {
   const [items, setItems] = useState([]);
   const [shippingDetail,setShippingDetail] = useState({});
   const [loadingBtn,setLoadingBtn] = useState(false);
+  const history = useHistory();
        
   const fetchData = async () => {
     setLoading(true);
@@ -84,13 +86,17 @@ const ShippingForm = () => {
     ));
   };
 
-  const handleOrder = async()=>{
+  const handleOrder = async () => {
+    toast.success("successfully ordered");
     if(shippingDetail.country.trim()==="" || shippingDetail.city.trim()===""|| shippingDetail.pincode.trim()==="" || shippingDetail.address.trim()===""){
       return;
     }
     setLoadingBtn(true);
     await placeOrder(user.uid,shippingDetail,items);
     setLoadingBtn(false);
+    setTimeout(() => {
+    history.push("/");
+    }, 2000)
     // setShow(true);
   }
 
@@ -100,17 +106,7 @@ const ShippingForm = () => {
       {!loading && (items.length > 0) &&
         <Container>
           <div>
-            {show && <Segment>
-              <SweetAlert
-                show={show}
-                type="success"
-                title="Order Confirmed"
-                text="Sit back and relax"
-                onConfirm={() => setShow(false)}
-              />
-            </Segment>}
-          </div>
-          <div>
+            <Toaster />
             <Segment style={{ marginTop: "5%" }}>
               <Header as="h2">
                 Order Summary

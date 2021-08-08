@@ -46,7 +46,7 @@ const Navbar = () => {
         <div className="menu">
         <Menu>
             <Menu.Item header>
-               <Link to="/">
+               <Link activeClassName="current" to="/">
                 Order it
                 </Link>
                  </Menu.Item>

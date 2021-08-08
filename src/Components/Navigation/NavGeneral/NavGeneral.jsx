@@ -51,7 +51,7 @@ const Navbar = () => {
   return (
     <div className="menu">
       <Menu className="menu">
-        <Menu.Item header> <Link to="/">
+        <Menu.Item header> <Link activeClassName="current" to="/">
          Order it 
          </Link></Menu.Item>
         <Menu.Item>
