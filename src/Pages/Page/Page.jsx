@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from "react"
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
-import { Container, Header, Segment, Divider, Button,Checkbox, Form } from "semantic-ui-react";
+import { Container, Header, Segment, Divider, Button, Checkbox, Form } from "semantic-ui-react";
 import DishCard from "../../Components/Cards/DishCard"
 import { useParams } from "react-router";
 import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
@@ -105,6 +105,7 @@ const Page = () => {
               <Form.Field>
                  <input type="number" placeholder="to" />
               </Form.Field>
+              <Button floated="right" content="Filter" basic />
             </Form>
             {dishes.map((data, index) => <DishCard info={data} addDishes={addDishes} />)}
           </Segment>
