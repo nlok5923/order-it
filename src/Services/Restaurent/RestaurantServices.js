@@ -191,6 +191,10 @@ export const getRestaurantDishes = async (id) => {
             })
         })
         for (let i = 0; i < data.length; i++) {
+            let price = parseInt(data[i].price);
+            let discount = parseInt(data[i].discount);
+            let discountedPrice = parseInt(price - price*discount/100);
+            data[i].discountedPrice = discountedPrice;
             let imageUrl = await getImageUrl("dish", data[i].fileName);
             data[i].firebaseImage = imageUrl;
         }

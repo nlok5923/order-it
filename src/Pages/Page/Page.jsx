@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from "react"
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
-import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
+import { Container, Header, Segment, Divider, Button,Checkbox } from "semantic-ui-react";
 import DishCard from "../../Components/Cards/DishCard"
 import { useParams } from "react-router";
 import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
@@ -24,6 +24,8 @@ const Page = () => {
 
   const [loading, setLoading] = useState(true);
   const [dishes, setDishes] = useState([]);
+  const [sortedDish,setSortedDish] = useState([]);
+  const [unsortedDish,setUnsortedDish] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState([]);
   const [restaurantImages, setRestaurantImages] = useState([]);
   const { id } = useParams();
@@ -33,6 +35,9 @@ const Page = () => {
   const fetchData = async()=>{
     let data = await getRestaurantDishes(id) 
     setDishes(data);
+    setUnsortedDish(data);
+    data.sort((a, b) => a.discountedPrice > b.discountedPrice ? 1 : -1)
+    setSortedDish(data);
     data = await getRestaurantInformation(id)
     setRestaurantInfo(data);
     let images = await getRestaurantImagesUrl(id);
@@ -54,6 +59,13 @@ const Page = () => {
     }
   };
 
+  const handleChange = (e)=>{
+    if(document.getElementById('checkBox').checked){
+      setDishes(sortedDish);
+    }else{
+      setDishes(unsortedDish)
+    }
+  }
 
   useEffect(() => {
     fetchData();
@@ -85,6 +97,7 @@ const Page = () => {
             </Header>
             <Divider />
             <Header as="h2">Recommended</Header>
+            <Checkbox id="checkBox" onChange={handleChange} label='Sort Dished According To Price.' />
             {dishes.map((data, index) => <DishCard info={data} addDishes={addDishes} />)}
           </Segment>
         </Container>
