@@ -29,10 +29,8 @@ export const getRestaurants = async() => {
         for (let j = 0; j < data.length; j++) {
             let imageUrl = [];
             let fileNames = data[j].fileNames;
-            for(let i=0;i<fileNames.length;i++){
-                let image = await getImageUrl("restaurants",fileNames[i]);
-                imageUrl.push(image);
-            }
+            let image = await getImageUrl("restaurants",fileNames[0]);
+            imageUrl.push(image);
             data[j].firebaseImages = [...imageUrl];
         }
         return data;
@@ -167,11 +165,8 @@ export const searchRestaurants =async (pinCode,searchText)=>{
         for (let j = 0; j < data.length; j++) {
             let imageUrl = [];
             let fileNames = data[j].fileNames;
-            console.log(fileNames);
-            for(let i=0;i<fileNames.length;i++){
-                let image = await getImageUrl("restaurants",fileNames[i]);
-                imageUrl.push(image);
-            }
+            let image = await getImageUrl("restaurants",fileNames[0]);
+            imageUrl.push(image);
             data[j].firebaseImages = [...imageUrl];
         }
         return data;

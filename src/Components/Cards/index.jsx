@@ -1,7 +1,5 @@
-import React from "react";
 import { Card, Icon, Image, Label, Button } from "semantic-ui-react";
 import { useState, useEffect } from "react";
-import { getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices";
 
 const CardExampleCard = (props) => {
   const [images, setImages] = useState([]);

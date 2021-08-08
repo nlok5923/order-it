@@ -1,14 +1,12 @@
 import Card from "../Components/Cards/index"
 import { Container, Grid, Header } from 'semantic-ui-react'
-import { getRestaurants, getRestaurantImagesUrl } from "../Services/Restaurent/RestaurantServices"
+import { getRestaurants } from "../Services/Restaurent/RestaurantServices"
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../Providers/UserProvider";
 import { isRestaurent } from '../Services/Utils'
-import { NavLink } from "react-router-dom"
+import { NavLink,Redirect } from "react-router-dom"
 import Loader from '../Components/Loader/index';
 import DataLoader from '../Components/LoadingData/LoadingData'
-
-const marginTop = { marginTop: "5%" }
 
 const Home = () => {
   const info = useContext(UserContext);
@@ -44,6 +42,10 @@ const Home = () => {
         handleUser();
     }
   }, [user,isLoading])
+
+  if (redirect) {
+    return <Redirect to={redirect} />;
+  }
 
   return (
     <div> 
