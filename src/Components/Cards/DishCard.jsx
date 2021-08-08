@@ -5,7 +5,7 @@ import { Card, Header, Icon, Button, Label, Form } from "semantic-ui-react";
 
 const OrderCard = (props) => {
   const history = useHistory();
-  const [quantity, setItemQuantity] = useState(0);
+  const [quantity, setItemQuantity] = useState(1);
 
   const setQuantity = (e) => {
     setItemQuantity(e.target.value);
@@ -67,7 +67,7 @@ const OrderCard = (props) => {
               <br />
               <Form>
                 <Form.Field>
-                  <input type="number" placeholder="enter item quantity" name="quantity" onChange={(e) => setQuantity(e)} />
+                  <input type="number" placeholder="enter item quantity" name="quantity" style={{ width: "15vw", marginTop:"5%" }} onChange={(e) => setQuantity(e)} />
                 </Form.Field>
               </Form>
                 </div>

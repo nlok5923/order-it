@@ -1,14 +1,19 @@
 import React from "react"
 import { Table, Button, Container, Form } from "semantic-ui-react"
 import "./Table.scss"
+import { deleteCartItem } from "../../Services/User/UserServices"
 
 const CartItems = (props) => {
+  const deleteCartItemById = async (userid, id) => {
+    await deleteCartItem(userid, id);
+    props.refreshData();
+  }
+
     return(<div>{props.isOrder ?
         <div>
              <Table celled>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>image</Table.HeaderCell>
                 <Table.HeaderCell>Name</Table.HeaderCell>
                 <Table.HeaderCell>Price</Table.HeaderCell>
                 <Table.HeaderCell>discount</Table.HeaderCell>
@@ -19,13 +24,10 @@ const CartItems = (props) => {
             <Table.Body>
               {props.info.map((element, index) => (
                 <Table.Row>
-                  <Table.Cell content="center">
-                      <img src="/images/pizza.jpg"  alt="pizza" className="food-image" />
-                  </Table.Cell>
-                  <Table.Cell>{element.name}</Table.Cell>
-                  <Table.Cell>{element.price}</Table.Cell>
-                  <Table.Cell>{element.discount}</Table.Cell>
-                  <Table.Cell>{element.desc}</Table.Cell>
+                  <Table.Cell>{element.data.dishName}</Table.Cell>
+                  <Table.Cell>Rs {element.data.price}</Table.Cell>
+                  <Table.Cell>{element.data.discount}%</Table.Cell>
+                  <Table.Cell>{element.data.description}</Table.Cell>
                   <Table.Cell>
                       {element.quantity}
                   </Table.Cell>
@@ -36,11 +38,10 @@ const CartItems = (props) => {
 
             </div>
              : 
-    <div>
+             <div>
             <Table celled>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>image</Table.HeaderCell>
                 <Table.HeaderCell>Name</Table.HeaderCell>
                 <Table.HeaderCell>Price</Table.HeaderCell>
                 <Table.HeaderCell>discount</Table.HeaderCell>
@@ -52,17 +53,20 @@ const CartItems = (props) => {
             <Table.Body>
               {props.info.map((element, index) => (
                 <Table.Row>
-                  <Table.Cell content="center">
-                      <img src="/images/pizza.jpg"  alt="pizza" className="food-image" />
-                  </Table.Cell>
                   <Table.Cell>{element.data.dishName}</Table.Cell>
-                  <Table.Cell>{element.data.price}</Table.Cell>
-                  <Table.Cell>{element.data.discount}</Table.Cell>
+                  <Table.Cell>Rs {element.data.price}</Table.Cell>
+                  <Table.Cell>{element.data.discount}%</Table.Cell>
                   <Table.Cell>{element.data.description}</Table.Cell>
                   <Table.Cell>
                     {element.quantity}
                   </Table.Cell>
-                  <Table.Cell><Button icon="trash" color="red" /></Table.Cell>
+                  <Table.Cell>
+                    <Button 
+                    icon="trash" 
+                    color="red"
+                    onClick={() => deleteCartItemById(props.userid, element.dishId)} 
+                    />
+                    </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

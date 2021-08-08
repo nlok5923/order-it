@@ -1,9 +1,15 @@
 import React from "react"
 import { Container, Header, Button, Form, Icon ,Message, Segment } from "semantic-ui-react";
-import {  useState } from "react"
+import {  useState, useEffect, useContext } from "react"
 import Table from "../../../Components/Table/Table"
 import SweetAlert from "sweetalert-react"
 import 'sweetalert/dist/sweetalert.css';
+import { getUserCart, getCartItem } from "../../../Services/User/UserServices"
+import { UserContext } from '../../../Providers/UserProvider'
+import { Redirect } from "react-router";
+import Loader from "../../../Components/Loader/index"
+import { NavLink } from "react-router-dom";
+import { getAmountSum } from "../../../Services/Utils"
 
 const formElement = [
     { name: "address", type: "text" },
@@ -58,6 +64,41 @@ const formElement = [
 ]
 
 const ShippingForm = () => {
+
+  const info = useContext(UserContext);
+  const { user, isLoading } = info;
+  const [cartItems, setCartItems] = useState([]);
+  const [redirect, setRedirect] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState([]);
+
+  const fetchData = async () => {
+    setLoading(true);
+    let cartitems = await getUserCart(user.uid);
+    setCartItems(cartitems);
+    console.log(cartitems)
+    let itemsData = [];
+    cartitems.map(async item => {
+      let itemInfo = await getCartItem(item.restaurantId, item.dishId);
+      setItems(prevState => [...prevState, { data: itemInfo, quantity: item.quantity }]);
+    });
+    setItems(itemsData);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+   if(user && !isLoading) {
+     fetchData();
+   } else {
+     setRedirect("/");
+   }
+  },[]);
+
+  if(redirect) {
+    <Redirect to={redirect} />
+  }
+
+
   const [show, setShow] = useState(false)
     const [errMessage, setErrMessage] = useState("");
     const renderFormElements = () => {
@@ -78,6 +119,8 @@ const ShippingForm = () => {
     
     return(
         <div>
+      {loading && <Loader />}
+      {!loading &&  (items.length > 0) &&
       <Container>
       <div>
         <Segment>
@@ -108,14 +151,14 @@ const ShippingForm = () => {
               <Header as="h2">
                   Order Summary
               <Header.Subheader>
-                  Order amount: 1000
+                  Order amount: Rs {getAmountSum(items)}
               </Header.Subheader>
               <Header.Subheader>
                   Shipping Charge: 0 
               </Header.Subheader>
               </Header>
 
-              <Header as="h2"> total Amount: 1000 </Header>
+              <Header as="h2"> total Amount: Rs {getAmountSum(items)}</Header>
               <Button color="green" onClick={() => setShow(true)}> Order now </Button>
           </Segment>
       </div>
@@ -123,10 +166,10 @@ const ShippingForm = () => {
       <div>
           <Segment style={ { marginTop: "5%"}}>
               <Header as="h3">Order details </Header>
-              <Table info = {dishes} isOrder = {true} />
+              <Table info = {items} isOrder = {true} />
           </Segment>
       </div>
-    </Container>
+    </Container>}
         </div>
     )
 }

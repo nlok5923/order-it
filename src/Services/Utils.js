@@ -44,6 +44,9 @@ export const isRestaurent = async(id)=>{
     return restaurentRef.exists;
 }
 
-export const getAmountSum = () => {
-    
+export const getAmountSum = (items) => {
+    let amount = 0;
+    console.log(items);
+    items.map(item => amount += (item.data.discountedPrice * item.quantity));
+    return amount;
 }

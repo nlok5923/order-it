@@ -52,7 +52,21 @@ export const getCartItem = async (restId, id) => {
         let cartRef = await db.collection("restaurants").doc(restId).collection("dishes").doc(id).get();
         console.log(cartRef.data());
         let data = cartRef.data();
+        let price = parseInt(cartRef.data().price);
+        let discount = parseInt(cartRef.data().discount);
+        let discountedPrice = parseInt(price - price*discount/100);
+        data.discountedPrice = discountedPrice;
         return data;
+    } catch(err) {
+        console.log(err.message);
+        throw err;
+    }
+}
+
+export const deleteCartItem = async (userid, id) => {
+    try {
+        await db.collection("users").doc(userid).collection("cart").doc(id).delete()
+        .then(data => console.log("deleted", data))
     } catch(err) {
         console.log(err.message);
         throw err;
