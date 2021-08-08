@@ -25,12 +25,6 @@ const OrderCard = (props) => {
         <p>date: {props.orders.date}</p>
         <p>Amount: {props.orders.price}</p>
         <p>Description: {props.orders.desc}</p>
-        <Button
-          icon="eye"
-          basic
-          floated="right"
-          content="view details"
-        />
         </Card.Content>
         </Card>
     )
