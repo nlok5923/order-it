@@ -1,6 +1,7 @@
 import React from "react"
 import { Table, Dropdown } from "semantic-ui-react"
 import "./Table.scss"
+import { getDiscountedPrice } from "../../Services/Utils"
 
 const Orders = (props) => {
 
@@ -29,7 +30,11 @@ const status = [
                   <Table.Cell>{element.dishName}</Table.Cell>
                   <Table.Cell>Rs {element.price}</Table.Cell>
                   <Table.Cell>{element.discount}%</Table.Cell>
-                  <Table.Cell>{element.discountedPrice}</Table.Cell>
+                  <Table.Cell>
+                    
+                    {element.discountedPrice === undefined ? getDiscountedPrice(element.price, element.discount) : element.discountedPrice}
+                    
+                    </Table.Cell>
                   <Table.Cell>
                       <Dropdown 
                       clearable

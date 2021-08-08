@@ -50,3 +50,10 @@ export const getAmountSum = (items) => {
     items.map(item => amount += (item.data.discountedPrice * item.quantity));
     return amount;
 }
+
+export const getDiscountedPrice = (money, off) => {
+    let price = parseInt(money);
+    let discount = parseInt(off);
+    let discountedPrice = parseInt(price - price*discount/100);
+    return discountedPrice;
+}
