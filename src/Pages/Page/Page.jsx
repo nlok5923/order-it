@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from "react"
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
-import { Container, Header, Segment, Divider, Button,Checkbox, Form } from "semantic-ui-react";
+import { Container, Header, Segment, Divider, Button, Checkbox, Form } from "semantic-ui-react";
 import DishCard from "../../Components/Cards/DishCard"
 import { useParams } from "react-router";
 import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
@@ -70,23 +70,6 @@ const Page = () => {
         <Container>
           <Toaster />
           <div className="filter">
-            <h3> Filter your search </h3>
-            <p> Rs 10 - Rs 100</p>
-            <p> Rs 101 - Rs 250</p>
-            <p> Rs 251 - Rs 500</p>
-            <p> Rs 501 - Rs 1000</p>
-            <Form>
-              <Form.Field>
-                <input type="text" name="from" placeholder="from" />
-              </Form.Field>
-            </Form>
-            <Form>
-              <Form.Field>
-              <input type="text" name="to" placeholder="to" style={{ marginTop: "5%" }} />
-              </Form.Field>
-            </Form>
-            <Button className="filter-btn" style={{ marginTop: "5%" }} basic color="green" content="filter" />
-            <div className="cart-loader">
             {adding ? 
             <CartLoader 
              type="Puff"
@@ -95,7 +78,6 @@ const Page = () => {
              width={50}
             />: null }
             </div>
-          </div>
           <Segment>
             <div className="slide-container">
               <Slide {...properties}>
@@ -116,6 +98,15 @@ const Page = () => {
             </Header>
             <Divider />
             <Header as="h2">Recommended</Header>
+            <Form>
+              <Form.Field>
+                 <input type="number" placeholder="from" />
+              </Form.Field>
+              <Form.Field>
+                 <input type="number" placeholder="to" />
+              </Form.Field>
+              <Button floated="right" content="Filter" basic />
+            </Form>
             {dishes.map((data, index) => <DishCard info={data} addDishes={addDishes} />)}
           </Segment>
         </Container>
