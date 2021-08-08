@@ -68,12 +68,12 @@ const UserCart = () => {
     <>
       {loading && (items.length === 0) && <Loader />}
       {!loading && <div>
+        <Container style={marginTop}>
+        <Header as="h1">All your added items are here 🤓 </Header>
         {
           items.map((item, index) => {
             return (
               <div key={index}>
-                <Container style={marginTop}>
-                  <Header as="h1">All your Dishes are visible here 🤓 </Header>
                   <Table info={item} userid={user.uid} handleDelete={handleDelete} />
                   <Header as="h2">Total: Rs{getAmountSum(item)}</Header>
                   <NavLink activeClassName="current" to={"/user/cart/shipping/" + item[0].restaurantId} >
@@ -81,11 +81,11 @@ const UserCart = () => {
                       Procced to checkout
                     </Button>
                   </NavLink>
-                </Container>
               </div>
             );
           })
         }
+                </Container>
       </div>}
     </>
   );

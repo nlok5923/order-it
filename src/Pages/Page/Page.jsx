@@ -10,6 +10,7 @@ import Loader from '../../Components/Loader/index'
 import { UserContext } from '../../Providers/UserProvider'
 import { addDishToCart } from "../../Services/User/UserServices"
 import toast, { Toaster } from "react-hot-toast";
+import CartLoader from "react-loader-spinner"
 
 const properties = {
   duration: 3000,
@@ -29,6 +30,7 @@ const Page = () => {
   const { id } = useParams();
   const info = useContext(UserContext);
   const { user, isLoading } = info;
+  const [adding, setAdding] = useState(false);
   
   const fetchData = async()=>{
     let data = await getRestaurantDishes(id) 
@@ -43,12 +45,14 @@ const Page = () => {
   const addDishes = async (Dishid, quantity) => {
     if(user && !isLoading) {
       let restId = id;
+      setAdding(true);
       let resp = await addDishToCart(user.uid, Dishid, quantity, restId);
       console.log(user.uid, Dishid, quantity, restId)
         if(resp)
         toast("Added in cart");
         else 
         toast("Already added in cart");
+      setAdding(false);
     } else {
       toast("please Login in first Sir");
     }
@@ -82,6 +86,15 @@ const Page = () => {
               </Form.Field>
             </Form>
             <Button className="filter-btn" style={{ marginTop: "5%" }} basic color="green" content="filter" />
+            <div className="cart-loader">
+            {adding ? 
+            <CartLoader 
+             type="Puff"
+             color="red"
+             height={50}
+             width={50}
+            />: null }
+            </div>
           </div>
           <Segment>
             <div className="slide-container">
