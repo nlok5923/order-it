@@ -22,7 +22,6 @@ const Home = () => {
     setLoadingData(true);
     let data = await getRestaurants();
     setRestaurants(data)
-    console.log(data);
     setLoadingData(false);
   }
 

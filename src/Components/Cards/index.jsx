@@ -5,13 +5,9 @@ import { getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServ
 
 const CardExampleCard = (props) => {
   const [images, setImages] = useState([]);
-  const fetchImages = async () => {
-    let images = await getRestaurantImagesUrl(props.info.restaurantId);
-    setImages(images);
-  };
 
   useEffect(() => {
-    fetchImages();
+    setImages(props.info.firebaseImages)
   }, []);
 
   return (
