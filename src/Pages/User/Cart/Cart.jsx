@@ -23,19 +23,30 @@ const UserCart = () => {
     setLoading(true);
     let cartitems = await getUserCart(user.uid);
     setCartItems(cartitems);
+    cartitems.sort((a, b) => a.restaurantId - b.restaurantId)
     let itemsData = [];
-    for(let i=0;i<cartitems.length;i++){
+    for (let i = 0; i < cartitems.length; i++) {
+      let curRestaurant = cartitems[i].restaurantId;
+      let itemFromOneRestaurant = [];
       let itemInfo = await getCartItem(cartitems[i].restaurantId, cartitems[i].dishId);
-      itemsData.push(
-        { data: itemInfo,itemId:cartitems[i].itemId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
+      itemFromOneRestaurant.push(
+        { data: itemInfo, itemId: cartitems[i].itemId,restaurantId:cartitems[i].restaurantId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
       )
+      while (i + 1 < items.length && items[i + 1].sellerId === curRestaurant) {
+        i++;
+        itemInfo = await getCartItem(cartitems[i].restaurantId, cartitems[i].dishId);
+        itemFromOneRestaurant.push(
+          { data: itemInfo, itemId: cartitems[i].itemId,restaurantId:cartitems[i].restaurantId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
+        )
+      }
+      itemsData.push(itemFromOneRestaurant);
     }
     setItems(itemsData);
     setLoading(false);
   }
 
-  const handleDelete = async(userid, id)=>{
-    setItems(items.filter((item)=>item.itemId!==id))
+  const handleDelete = async (userid, id) => {
+    setItems(items.filter((item) => item.itemId !== id))
     await deleteCartItem(userid, id);
   }
 
@@ -56,19 +67,25 @@ const UserCart = () => {
   return (
     <>
       {loading && (items.length === 0) && <Loader />}
-      {!loading && (items.length > 0) && <div>
-        <div style={containerHeight}>
-          <Container style={marginTop}>
-            <Header as="h1">All your Dishes are visible here 🤓 </Header>
-            <Table info={items} userid={user.uid} handleDelete={handleDelete}/>
-            <Header as="h2">Total: Rs{getAmountSum(items)}</Header>
-            <NavLink activeClassName="current" to="/user/cart/shipping" >
-              <Button floated="right" color="green">
-                Procced to checkout
-              </Button>
-            </NavLink>
-          </Container>
-        </div>
+      {!loading && <div>
+        {
+          items.map((item, index) => {
+            return (
+              <div key={index}>
+                <Container style={marginTop}>
+                  <Header as="h1">All your Dishes are visible here 🤓 </Header>
+                  <Table info={item} userid={user.uid} handleDelete={handleDelete} />
+                  <Header as="h2">Total: Rs{getAmountSum(item)}</Header>
+                  <NavLink activeClassName="current" to={"/user/cart/shipping/" + item[0].restaurantId} >
+                    <Button floated="right" color="green">
+                      Procced to checkout
+                    </Button>
+                  </NavLink>
+                </Container>
+              </div>
+            );
+          })
+        }
       </div>}
     </>
   );
