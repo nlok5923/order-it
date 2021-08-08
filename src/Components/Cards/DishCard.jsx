@@ -13,13 +13,17 @@ const OrderCard = (props) => {
 
   return (
     <Card fluid>
+      {props.info.discount ? 
+       <Label color="red" floating >
+          {props.info.discount} %
+        </Label> : null} 
       <Card.Content>
         <div className="dish-info">
           <div className="dish-info-text">
             <Header as="h2">{props.info.dishName}</Header>
             <Header as="h2">
               <Header.Subheader>
-                Amount: {props.info.price} with {props.info.discount}% discount
+                Amount: <strike> Rs {props.info.price} </strike>  <b> Rs {props.info.discountedPrice}</b>
               </Header.Subheader>
               <Header.Subheader>
                 Description: {props.info.description} 

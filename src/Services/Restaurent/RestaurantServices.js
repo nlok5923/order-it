@@ -22,6 +22,7 @@ export const getRestaurants = async() => {
                 address: doc.data().address,
                 phone: doc.data().phone,
                 restaurantId: doc.id,
+                discount: doc.data().discount,
                 fileNames:doc.data().fileNames
                 // description: data.doc().description
             })

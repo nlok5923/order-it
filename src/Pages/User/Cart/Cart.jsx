@@ -60,13 +60,13 @@ const UserCart = () => {
     setLoading(true);
     let cartitems = await getUserCart(user.uid);
     setCartItems(cartitems);
-    console.log("ths is cart",cartitems)
+    console.log(cartitems)
     let itemsData = [];
     cartItems.map(async item => {
       let itemInfo = await getCartItem(item.restaurantId, item.dishId);
-      console.log("areitem", itemInfo);
       itemsData.push({ data:itemInfo, quantity: item.quantity });
       console.log(itemsData)
+      // setItems(prevState => [...prevState, {}]);
     });
     setItems(itemsData);
     console.log("ye item hai", items)

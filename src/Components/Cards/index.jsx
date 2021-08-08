@@ -12,9 +12,10 @@ const CardExampleCard = (props) => {
     <Card>
       {props.info.discount ? (
         <Label color="red" floating>
-          {props.info.discount}
+          {props.info.discount}% 
         </Label>
       ) : null}
+      
       {images.length > 0 ? (
         <img src={images[0]} style={{  height: "300px", width:"260px" }} alt="card" />
       ) : (
@@ -23,7 +24,7 @@ const CardExampleCard = (props) => {
       <Card.Content>
         <Card.Header>{props.info.RestaurantName}</Card.Header>
         <Card.Description>
-          <span>{props.info.address}</span>
+          <span>{props.info.address}</span> 
         </Card.Description>
       </Card.Content>
       <Card.Content>
