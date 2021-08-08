@@ -5,7 +5,7 @@ import AdminDetailsForm from "./Pages/Admin/Form/index"
 import LandingPage from "./Pages/index";
 import RestaurantDashboard from "./Pages/Admin/Dashboard/dashboard"
 import Navbar from "./Components/Navigation/Navbar/Navbar";
-import DishPage from "./Components/Page/Page"
+import DishPage from "./Pages/Page/Page"
 import addDishPage from "./Pages/Admin/addDishes/addDish"
 import EditDishPage from "./Pages/Admin/EditDish/EditDish"
 import UserCart from "./Pages/User/Cart/Cart";

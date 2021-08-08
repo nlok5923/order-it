@@ -3,10 +3,10 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
 import { Container, Header, Segment, Divider, Button } from "semantic-ui-react";
-import DishCard from "../Cards/DishCard"
+import DishCard from "../../Components/Cards/DishCard"
 import { useParams } from "react-router";
 import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
-import Loader from '../Loader/index'
+import Loader from '../../Components/Loader/index'
 
 const properties = {
   duration: 3000,
