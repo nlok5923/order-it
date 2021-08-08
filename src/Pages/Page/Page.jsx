@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from "react"
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
-import { Container, Header, Segment, Divider, Button,Checkbox } from "semantic-ui-react";
+import { Container, Header, Segment, Divider, Button,Checkbox, Form } from "semantic-ui-react";
 import DishCard from "../../Components/Cards/DishCard"
 import { useParams } from "react-router";
 import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
@@ -46,11 +46,11 @@ const Page = () => {
       let resp = await addDishToCart(user.uid, Dishid, quantity, restId);
       console.log(user.uid, Dishid, quantity, restId)
         if(resp)
-        toast("Added in favourite");
+        toast("Added in cart");
         else 
-        toast("Already added in favourite");
+        toast("Already added in cart");
     } else {
-      toast("please Login in first");
+      toast("please Login in first Sir");
     }
   };
 
@@ -65,6 +65,24 @@ const Page = () => {
       {!loading &&
         <Container>
           <Toaster />
+          <div className="filter">
+            <h3> Filter your search </h3>
+            <p> Rs 10 - Rs 100</p>
+            <p> Rs 101 - Rs 250</p>
+            <p> Rs 251 - Rs 500</p>
+            <p> Rs 501 - Rs 1000</p>
+            <Form>
+              <Form.Field>
+                <input type="text" name="from" placeholder="from" />
+              </Form.Field>
+            </Form>
+            <Form>
+              <Form.Field>
+              <input type="text" name="to" placeholder="to" style={{ marginTop: "5%" }} />
+              </Form.Field>
+            </Form>
+            <Button className="filter-btn" style={{ marginTop: "5%" }} basic color="green" content="filter" />
+          </div>
           <Segment>
             <div className="slide-container">
               <Slide {...properties}>
