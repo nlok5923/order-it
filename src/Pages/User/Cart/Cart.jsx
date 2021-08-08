@@ -76,13 +76,13 @@ const UserCart = () => {
       {loading && (items.length === 0) && <Loader />}
       {!loading && <div>
         <Container style={marginTop}>
-          <Header as="h1">All your added items are here 🤓 </Header>
-          {items.length > 0 &&
-            items.map((item, index) => {
-              return (
-                <div key={index}>
+        <Header as="h1">All your added items are here 🤓 </Header>
+        {
+          items.map((item, index) => {
+            return (
+              <div style={{ marginTop:"8%" }}  key={index}>
                   <Table info={item} userid={user.uid} handleDelete={handleDelete} />
-                  <Header as="h2">Total: Rs{getAmountSum(item)}</Header>
+                  <Header as="h2">Total: Rs {getAmountSum(item)}</Header>
                   <NavLink activeClassName="current" to={"/user/cart/shipping/" + item[0].restaurantId} >
                     <Button floated="right" color="green">
                       Procced to checkout

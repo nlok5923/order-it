@@ -39,7 +39,7 @@ const LoginPage = () => {
       <Grid.Column style={{ maxWidth: 450 }}>
         <Container textAlign="center">
           <Header as='h2' color='teal' textAlign='center'>
-            Welcome Admin let's get authenticated
+            Welcome Restaurant let's get authenticated
           </Header>
           <Container textAlign="center">
             <Segment>

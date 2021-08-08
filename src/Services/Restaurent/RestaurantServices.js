@@ -247,3 +247,39 @@ export const deleteDish = async (restId, dishId, filename) => {
         return err.message;
     }
 };
+
+
+export const getAllOrders = async (restid) => {
+    try {
+        let ordersRef = await db.collection("restaurants").doc(restid).collection("orders").get();
+        let data = [];
+        ordersRef.forEach((doc) => {
+            console.log(doc.data())
+            data.push({
+                date: new Date(doc.data().date.seconds*1000).toLocaleDateString("en-US"),
+                orderInfo:  doc.data().orderItem,
+                address: doc.data().shippingDetail,
+                userid: doc.data().userId,
+                id: doc.id,
+                status: doc.data().status,
+                // eslint-disable-next-line no-dupe-keys
+            })
+        })
+        return data;
+    } catch(err) {
+        console.log(err.message);
+        return err.message;
+    }
+}
+
+export const updateUserOrderStatus = async (userid,  orderid, status, restid) => {
+    try {
+        let orderRef = await db.collection("users").doc(userid).collection("orders").doc(orderid);
+        orderRef.update({ status });
+        let orderRefAdmin = await db.collection("restaurants").doc(restid).collection("orders").doc(orderid)
+        orderRefAdmin.update({ status: status })
+    } catch(err) {
+        console.log(err.message);
+        throw err;
+    }
+}
