@@ -27,7 +27,7 @@ const ShippingForm = () => {
   const [items, setItems] = useState([]);
   const [shippingDetail,setShippingDetail] = useState();
   const [loadingBtn,setLoadingBtn] = useState(false);
-
+       
   const fetchData = async () => {
     setLoading(true);
     let cartitems = await getUserCart(user.uid);

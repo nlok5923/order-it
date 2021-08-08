@@ -23,7 +23,7 @@ const UserCart = () => {
     setLoading(true);
     let cartitems = await getUserCart(user.uid);
     setCartItems(cartitems);
-    cartitems.sort((a, b) => a.restaurantId - b.restaurantId)
+    cartitems.sort((a, b) => a.restaurantId > b.restaurantId?1:-1)
     let itemsData = [];
     for (let i = 0; i < cartitems.length; i++) {
       let curRestaurant = cartitems[i].restaurantId;
@@ -32,7 +32,7 @@ const UserCart = () => {
       itemFromOneRestaurant.push(
         { data: itemInfo, itemId: cartitems[i].itemId,restaurantId:cartitems[i].restaurantId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
       )
-      while (i + 1 < items.length && items[i + 1].sellerId === curRestaurant) {
+      while (i + 1 < cartitems.length && cartitems[i + 1].restaurantId === curRestaurant) {
         i++;
         itemInfo = await getCartItem(cartitems[i].restaurantId, cartitems[i].dishId);
         itemFromOneRestaurant.push(
