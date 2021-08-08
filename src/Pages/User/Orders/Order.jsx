@@ -75,6 +75,14 @@ const OrderPage = () => {
     const fetchData = async()=>{
         setLoadingData(true);
         let data = await getUserOrder(user.uid);
+        data.forEach((order)=>{
+            order.orderItem.forEach((item)=>{
+                let price = parseInt(item.price);
+                let discount = parseInt(item.discount);
+                let discountedPrice = parseInt(price - price*discount/100);
+                item.discountedPrice = discountedPrice;
+            })
+        })
         setOrder(data);
         setLoadingData(false);
     }
@@ -99,7 +107,7 @@ const OrderPage = () => {
             {!isLoading && loadingData && <DataLoader />}
             {!isLoading && !loadingData && <Container>
                 <Header as="h2"> All of your orders are here </Header>
-                {dishes.map((data, index) => <OrderCard orders={data} />)}
+                {orders.map((data, index) => <OrderCard orders={data} />)}
             </Container>}
         </div>
     )
