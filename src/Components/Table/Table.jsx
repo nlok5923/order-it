@@ -55,16 +55,12 @@ const CartItems = (props) => {
                   <Table.Cell content="center">
                       <img src="/images/pizza.jpg"  alt="pizza" className="food-image" />
                   </Table.Cell>
-                  <Table.Cell>{element.name}</Table.Cell>
-                  <Table.Cell>{element.price}</Table.Cell>
-                  <Table.Cell>{element.discount}</Table.Cell>
-                  <Table.Cell>{element.desc}</Table.Cell>
+                  <Table.Cell>{element.data.dishName}</Table.Cell>
+                  <Table.Cell>{element.data.price}</Table.Cell>
+                  <Table.Cell>{element.data.discount}</Table.Cell>
+                  <Table.Cell>{element.data.description}</Table.Cell>
                   <Table.Cell>
-                      <Form>
-                          <Form.Field>
-                      <input type="number" name="quantity" />
-                          </Form.Field>
-                      </Form>
+                    {element.quantity}
                   </Table.Cell>
                   <Table.Cell><Button icon="trash" color="red" /></Table.Cell>
                 </Table.Row>
