@@ -46,7 +46,6 @@ export const isRestaurent = async(id)=>{
 
 export const getAmountSum = (items) => {
     let amount = 0;
-    console.log(items);
     items.map(item => amount += (item.data.discountedPrice * item.quantity));
     return amount;
 }

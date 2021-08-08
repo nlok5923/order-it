@@ -100,14 +100,14 @@ export const placeOrder = async(userId,shippingDetail,items)=>{
             date,
             shippingDetail,
             restaurantId,
-            status:"pending"
+            status:"processing"
         })
         await db.collection("restaurants").doc(restaurantId).collection("orders").doc(data.id).set({
             userId,
             date,
             shippingDetail,
             orderItem,
-            status:"pending"
+            status:"processing"
         })
         for(let item of items){
             await db.collection("users").doc(userId).collection("cart").doc(item.itemId).delete();
@@ -124,10 +124,13 @@ export const getUserOrder = async(id)=>{
         let data = [];
         ref.forEach((doc)=>[
             data.push({
-                date:doc.data().date,
-                shippingDetail:doc.data().shippingDetails
+                date:new Date(doc.data().date.seconds*1000).toLocaleDateString("en-US"),
+                shippingDetail:doc.data().shippingDetail,
+                orderItem:doc.data().orderItem,
+                status:doc.data().status
             })
         ])
+        return data;
     } catch (error) {
         console.log(error.message);
     }
