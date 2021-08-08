@@ -47,8 +47,7 @@ const OrdersPage = () => {
 
     const handleStatus = (e, info, orderid, userid) => {
         setorderstatus(info.value);
-        console.log(info.value);
-        updateStatus(orderstatus, orderid, userid);
+        updateStatus(info.value, orderid, userid);
     }
 
     useEffect(() => {
