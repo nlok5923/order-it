@@ -8,18 +8,17 @@ initializeApp();
 var user;
 const db = firebase.firestore();
 
-export const addDishToCart = async (info)=>{
+export const addDishToCart = async (uid, dishId)=>{
     try {
-        const { dishId, uid} = info;
         let dishes  = [];
         let dishRef = await db.collection("users").doc(uid).collection("cart").get();
-        dishRef.forEach(dishId => {
-            dishes.push(dishId.data());
+        dishRef.forEach(data => {
+            dishes.push(data.data().dishId);
         })
         console.log(dishes);
         if(dishes.includes(dishId)) {
             return false;
-        } else {
+        } else { 
         await db.collection("users").doc(uid).collection("cart").add({
             uid,
             dishId

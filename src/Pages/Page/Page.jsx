@@ -9,7 +9,7 @@ import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl }
 import Loader from '../../Components/Loader/index'
 import { UserContext } from '../../Providers/UserProvider'
 import { addDishToCart } from "../../Services/User/UserServices"
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const properties = {
   duration: 3000,
@@ -43,13 +43,10 @@ const Page = () => {
   const addDishes = async (id) => {
     if(user && !isLoading) {
       let resp = await addDishToCart(user.uid, id)
-      // if (state) {
-        console.log(user.uid, id);
         if(resp)
         toast("Added in favourite");
         else 
         toast("Already added in favourite");
-      // }
     } else {
       toast("please Login in first");
     }
@@ -65,6 +62,7 @@ const Page = () => {
       {loading && <Loader />}
       {!loading &&
         <Container>
+          <Toaster />
           <Segment>
             <div className="slide-container">
               <Slide {...properties}>
@@ -85,7 +83,7 @@ const Page = () => {
             </Header>
             <Divider />
             <Header as="h2">Recommended</Header>
-            {dishes.map((data, index) => <DishCard info={data} addDish={addDishes} />)}
+            {dishes.map((data, index) => <DishCard info={data} addDishes={addDishes} />)}
           </Segment>
         </Container>
       }
