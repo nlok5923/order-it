@@ -1,5 +1,5 @@
 import { React, useState, useEffect, useContext } from "react";
-import { Container, Header, Grid, Button } from "semantic-ui-react";
+import { Container, Header, Grid, Button,Message } from "semantic-ui-react";
 import Table from "../../../Components/Table/Table";
 import { getUserCart, getCartItem, deleteCartItem } from "../../../Services/User/UserServices"
 import { UserContext } from '../../../Providers/UserProvider'
@@ -23,20 +23,20 @@ const UserCart = () => {
     setLoading(true);
     let cartitems = await getUserCart(user.uid);
     setCartItems(cartitems);
-    cartitems.sort((a, b) => a.restaurantId > b.restaurantId?1:-1)
+    cartitems.sort((a, b) => a.restaurantId > b.restaurantId ? 1 : -1)
     let itemsData = [];
     for (let i = 0; i < cartitems.length; i++) {
       let curRestaurant = cartitems[i].restaurantId;
       let itemFromOneRestaurant = [];
       let itemInfo = await getCartItem(cartitems[i].restaurantId, cartitems[i].dishId);
       itemFromOneRestaurant.push(
-        { data: itemInfo, itemId: cartitems[i].itemId,restaurantId:cartitems[i].restaurantId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
+        { data: itemInfo, itemId: cartitems[i].itemId, restaurantId: cartitems[i].restaurantId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
       )
       while (i + 1 < cartitems.length && cartitems[i + 1].restaurantId === curRestaurant) {
         i++;
         itemInfo = await getCartItem(cartitems[i].restaurantId, cartitems[i].dishId);
         itemFromOneRestaurant.push(
-          { data: itemInfo, itemId: cartitems[i].itemId,restaurantId:cartitems[i].restaurantId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
+          { data: itemInfo, itemId: cartitems[i].itemId, restaurantId: cartitems[i].restaurantId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
         )
       }
       itemsData.push(itemFromOneRestaurant);
@@ -46,7 +46,14 @@ const UserCart = () => {
   }
 
   const handleDelete = async (userid, id) => {
-    setItems(items.filter((item) => item.itemId !== id))
+    let temItems = [];
+    items.forEach((oneRestItem) => {
+      let array = oneRestItem.filter((item) => item.itemId !== id);
+      if (array.length > 0) {
+        temItems.push(array);
+      }
+    })
+    setItems(temItems);
     await deleteCartItem(userid, id);
   }
 
@@ -69,11 +76,11 @@ const UserCart = () => {
       {loading && (items.length === 0) && <Loader />}
       {!loading && <div>
         <Container style={marginTop}>
-        <Header as="h1">All your added items are here 🤓 </Header>
-        {
-          items.map((item, index) => {
-            return (
-              <div key={index}>
+          <Header as="h1">All your added items are here 🤓 </Header>
+          {items.length > 0 &&
+            items.map((item, index) => {
+              return (
+                <div key={index}>
                   <Table info={item} userid={user.uid} handleDelete={handleDelete} />
                   <Header as="h2">Total: Rs{getAmountSum(item)}</Header>
                   <NavLink activeClassName="current" to={"/user/cart/shipping/" + item[0].restaurantId} >
@@ -81,11 +88,20 @@ const UserCart = () => {
                       Procced to checkout
                     </Button>
                   </NavLink>
-              </div>
-            );
-          })
-        }
-                </Container>
+                </div>
+              );
+            })
+          }
+          {
+            (items.length===0) &&
+            <Message>
+                <Message.Header>Oops!</Message.Header>
+                <p>
+                  Your Cart is Empty. Please Add Some Items in Your Card.
+                </p>
+              </Message>
+          }
+        </Container>
       </div>}
     </>
   );
