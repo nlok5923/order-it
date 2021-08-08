@@ -39,7 +39,6 @@ const App = () => {
               <Route exact path="/search/:pinCode/:searchText" component={SearchPage} />
               <Route exact path="/" component={LandingPage} />
             </Switch>
-            <Footer />
         </Router>
       </UserProvider>
     </div>
