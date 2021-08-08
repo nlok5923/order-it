@@ -25,7 +25,12 @@ const ShippingForm = () => {
   const [redirect, setRedirect] = useState(null);
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
-  const [shippingDetail,setShippingDetail] = useState({});
+  const [shippingDetail,setShippingDetail] = useState({
+    address:"",
+    country:"",
+    city:"",
+    pincode:""
+  });
   const [loadingBtn,setLoadingBtn] = useState(false);
        
   const fetchData = async () => {
@@ -64,9 +69,9 @@ const ShippingForm = () => {
     <Redirect to={redirect} />
   }
 
-
   const [show, setShow] = useState(false)
   const [errMessage, setErrMessage] = useState("");
+  
   const renderFormElements = () => {
     return formElement.map((ele, index) => (
       <Form.Field>
@@ -91,7 +96,7 @@ const ShippingForm = () => {
     setLoadingBtn(true);
     await placeOrder(user.uid,shippingDetail,items);
     setLoadingBtn(false);
-    // setShow(true);
+    setShow(true);
   }
 
   return (
