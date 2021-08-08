@@ -40,6 +40,9 @@
 - After invoicing user can see the order status at My orders also the order status will be updated by the restaurant.
 - ![image](https://user-images.githubusercontent.com/56120084/128633424-4bfb96f2-3af2-4c45-834b-ac2549bf9f6d.png)
 
+- Page where user can manager his confirmed orders and see their status
+- ![image](https://user-images.githubusercontent.com/56120084/128635695-51e20172-13d6-4ef6-836e-b93af2b4137b.png)
+
 
 ### Functionality as restaurant side 
 
@@ -54,6 +57,9 @@
 
 - Similarly user can edit dishes by clicking to edit button on dish card the below interface will open for it at `edit-dish` url
 - ![image](https://user-images.githubusercontent.com/56120084/128633551-aea001c1-0993-4239-9ade-9c4e40776338.png)
+
+- page where resturant can update the order status from processing -> dispatched -> delivered
+- ![image](https://user-images.githubusercontent.com/56120084/128635769-cff93ed3-10e1-4b31-af32-51e2a24f17d3.png)
 
 
 
