@@ -8,3 +8,14 @@
 .food-slider-image {
     width: 90%;
 }
+
+.filter {
+    position: fixed;
+    top: 15%;
+    left: 1%;
+    width: 10vw;
+
+    &-btn {
+        margin-top: 5%;
+    }
+}

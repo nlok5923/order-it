@@ -85,7 +85,6 @@ const OrderPage = () => {
             <Header as="h2"> All of your orders are here </Header>
             {dishes.map((data, index) => <OrderCard orders={data} />)}
         </Container>
-
         </div>
     )
 }
