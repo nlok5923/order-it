@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Dropdown, Form, Button, Icon } from "semantic-ui-react";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { signOut } from "../../../Services/Utils";
 
 const Navbar = () => {
@@ -34,7 +34,11 @@ const Navbar = () => {
   return (
     <div className="menu">
       <Menu className="menu">
-        <Menu.Item header>Order it </Menu.Item>
+        <Menu.Item header>
+        <NavLink activeClassName="current" to="/">
+        Order it
+        </NavLink>
+        </Menu.Item>
         <Menu.Item position="right">
           <Dropdown
             trigger={trigger}

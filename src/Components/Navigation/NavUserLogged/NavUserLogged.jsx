@@ -35,7 +35,11 @@ const Navbar = () => {
     return (
         <div className="menu">
         <Menu>
-            <Menu.Item header>Order it </Menu.Item>
+            <Menu.Item header>
+               <Link>
+                Order it
+                </Link>
+                 </Menu.Item>
             <Menu.Item>
             <Form>
                 <Form.Field>

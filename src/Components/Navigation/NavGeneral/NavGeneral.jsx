@@ -51,7 +51,9 @@ const Navbar = () => {
   return (
     <div className="menu">
       <Menu className="menu">
-        <Menu.Item header>Order it </Menu.Item>
+        <Menu.Item header> <Link to="/">
+         Order it 
+         </Link></Menu.Item>
         <Menu.Item>
           <Link to="/user/login"> Login / Register </Link>
         </Menu.Item>
