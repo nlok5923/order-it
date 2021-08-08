@@ -200,6 +200,7 @@ export const getRestaurantDishes = async (id) => {
             data[i].firebaseImage = imageUrl;
         }
         return data;
+
     } catch (error) {
         console.log(error.message);
         return error.message;
