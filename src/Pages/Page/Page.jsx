@@ -40,9 +40,11 @@ const Page = () => {
     setLoading(false);
   }
 
-  const addDishes = async (id) => {
+  const addDishes = async (Dishid, quantity) => {
     if(user && !isLoading) {
-      let resp = await addDishToCart(user.uid, id)
+      let restId = id;
+      let resp = await addDishToCart(user.uid, Dishid, quantity, restId);
+      console.log(user.uid, Dishid, quantity, restId)
         if(resp)
         toast("Added in favourite");
         else 

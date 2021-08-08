@@ -8,7 +8,7 @@ initializeApp();
 var user;
 const db = firebase.firestore();
 
-export const addDishToCart = async (uid, dishId)=>{
+export const addDishToCart = async (uid, dishId, quantity, restaurantId) => {
     try {
         let dishes  = [];
         let dishRef = await db.collection("users").doc(uid).collection("cart").get();
@@ -20,8 +20,9 @@ export const addDishToCart = async (uid, dishId)=>{
             return false;
         } else { 
         await db.collection("users").doc(uid).collection("cart").add({
-            uid,
-            dishId
+            dishId,
+            quantity,
+            restaurantId
         }); 
         return true; 
     }
