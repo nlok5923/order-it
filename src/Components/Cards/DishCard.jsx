@@ -1,10 +1,15 @@
-import React from "react";
+import { React, useState } from "react";
 import "./Card.scss";
 import { useHistory } from "react-router-dom";
-import { Card, Header, Icon, Button, Label } from "semantic-ui-react";
+import { Card, Header, Icon, Button, Label, Form } from "semantic-ui-react";
 
 const OrderCard = (props) => {
   const history = useHistory();
+  const [quantity, setItemQuantity] = useState(0);
+
+  const setQuantity = (e) => {
+    setItemQuantity(e.target.value);
+  }
 
   return (
     <Card fluid>
@@ -45,15 +50,23 @@ const OrderCard = (props) => {
                 />
               </div>
             ) : (
+              <div>
               <Button
                 icon="add"
                 basic
                 className="add-to-cart-btn"
                 floated="left"
                 content="Add to cart"
-                onClick={() => props.addDishes(props.info.dishId)}
+                onClick={() => props.addDishes(props.info.dishId, quantity)}
                 color="red"
               />
+              <br />
+              <Form>
+                <Form.Field>
+                  <input type="number" placeholder="enter item quantity" name="quantity" onChange={(e) => setQuantity(e)} />
+                </Form.Field>
+              </Form>
+                </div>
             )}
           </div>
           <div className="dish-info-img">
