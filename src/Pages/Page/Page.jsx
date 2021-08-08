@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from "react"
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import "./Page.scss"
-import { Container, Header, Segment, Divider, Button, Checkbox, Form } from "semantic-ui-react";
+import { Container, Header, Segment, Divider, Button, Checkbox, Form,Label } from "semantic-ui-react";
 import DishCard from "../../Components/Cards/DishCard"
 import { useParams } from "react-router";
 import { getRestaurantDishes, getRestaurantInformation, getRestaurantImagesUrl } from "../../Services/Restaurent/RestaurantServices"
@@ -97,16 +97,19 @@ const Page = () => {
               </Header.Subheader>
             </Header>
             <Divider />
-            <Header as="h2">Recommended</Header>
+            <div className="filter-area">
             <Form>
               <Form.Field>
-                 <input type="number" placeholder="from" />
+                <label>Filter based on price </label>
+                 <input type="number" placeholder="Enter lowest price" />
               </Form.Field>
               <Form.Field>
-                 <input type="number" placeholder="to" />
+                 <input type="number" placeholder="Enter highest price" />
               </Form.Field>
-              <Button floated="right" content="Filter" basic />
+              <Button floated="left" content="Filter" basic />
             </Form>
+           </div> 
+            <Header as="h2">Recommended</Header>
             {dishes.map((data, index) => <DishCard info={data} addDishes={addDishes} />)}
           </Segment>
         </Container>
