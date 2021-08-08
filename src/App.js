@@ -15,6 +15,7 @@ import UserOrders from "./Pages/User/Orders/Order"
 import 'semantic-ui-css/semantic.min.css'
 import Footer from "./Components/Footer/Footer";
 import UserProvider from './Providers/UserProvider';
+import AdminOrders from "./Pages/Admin/Order/Order"
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
               <Route exact path="/restaurant/add-dish" component={addDishPage} />
               <Route exact path="/restaurant/edit-dish" component={EditDishPage} />
               <Route exact path="/admin/details" component={AdminDetailsForm} />
+              <Route exact path="/admin/orders" component={AdminOrders} />
               <Route exact path="/user/cart" component={UserCart} />
               <Route exact path="/user/cart/shipping" component={ShippingForm} />
               <Route exact path="/user/orders" component={UserOrders} />
