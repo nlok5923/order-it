@@ -4,9 +4,8 @@ import "./Table.scss"
 import { deleteCartItem } from "../../Services/User/UserServices"
 
 const CartItems = (props) => {
-  const deleteCartItemById = async (userid, id) => {
-    await deleteCartItem(userid, id);
-    props.refreshData();
+  const deleteCartItemById = (userid, id) => {
+    props.handleDelete(userid,id);
   }
 
     return(<div>{props.isOrder ?
@@ -64,7 +63,7 @@ const CartItems = (props) => {
                     <Button 
                     icon="trash" 
                     color="red"
-                    onClick={() => deleteCartItemById(props.userid, element.dishId)} 
+                    onClick={() => deleteCartItemById(props.userid, element.itemId)} 
                     />
                     </Table.Cell>
                 </Table.Row>

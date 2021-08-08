@@ -23,50 +23,53 @@ const UserCart = () => {
     setLoading(true);
     let cartitems = await getUserCart(user.uid);
     setCartItems(cartitems);
-    console.log(cartitems)
     let itemsData = [];
-    cartitems.map(async item => {
-      let itemInfo = await getCartItem(item.restaurantId, item.dishId);
-      setItems(prevState => [...prevState, { data: itemInfo, quantity: item.quantity, dishId: item.dishId }]);
-    });
+    for(let i=0;i<cartitems.length;i++){
+      let itemInfo = await getCartItem(cartitems[i].restaurantId, cartitems[i].dishId);
+      itemsData.push(
+        { data: itemInfo,itemId:cartitems[i].itemId, quantity: cartitems[i].quantity, dishId: cartitems[i].dishId }
+      )
+    }
     setItems(itemsData);
     setLoading(false);
   }
 
-  const refreshData = () => {
-    fetchData();
+  const handleDelete = async(userid, id)=>{
+    setItems(items.filter((item)=>item.itemId!==id))
+    await deleteCartItem(userid, id);
   }
 
   useEffect(() => {
-   if(user && !isLoading) {
-     console.log("dfdfdfdfd");
-     fetchData();
-   } else {
-     setRedirect("/");
-   }
-  },[]);
+    if (!isLoading) {
+      if (user) {
+        fetchData();
+      } else {
+        setRedirect("/");
+      }
+    }
+  }, [user, isLoading]);
 
   if (redirect) {
     return <Redirect to={redirect} />;
-}
+  }
 
   return (
     <>
-    {loading && (items.length === 0) && <Loader />}
-    {!loading &&  (items.length > 0) && <div>
-      <div style={containerHeight}>
-        <Container style={marginTop}>
-          <Header as="h1">All your Dishes are visible here 🤓 </Header>
-          <Table info={items} userid = {user.uid} refreshData={refreshData} />
-          <Header as="h2">Total: Rs{getAmountSum(items)}</Header>
-          <NavLink activeClassName="current" to="/user/cart/shipping" >
-          <Button floated="right" color="green">
-            Procced to checkout
-          </Button>
-          </NavLink>
-        </Container>
-      </div>
-    </div>}
+      {loading && (items.length === 0) && <Loader />}
+      {!loading && (items.length > 0) && <div>
+        <div style={containerHeight}>
+          <Container style={marginTop}>
+            <Header as="h1">All your Dishes are visible here 🤓 </Header>
+            <Table info={items} userid={user.uid} handleDelete={handleDelete}/>
+            <Header as="h2">Total: Rs{getAmountSum(items)}</Header>
+            <NavLink activeClassName="current" to="/user/cart/shipping" >
+              <Button floated="right" color="green">
+                Procced to checkout
+              </Button>
+            </NavLink>
+          </Container>
+        </div>
+      </div>}
     </>
   );
 };

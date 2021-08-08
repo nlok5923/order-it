@@ -37,7 +37,12 @@ export const getUserCart = async (uid) => {
         let cartItems = [];
         let cartRef = await db.collection("users").doc(uid).collection("cart").get();
         cartRef.forEach(data => {
-            cartItems.push(data.data());
+            cartItems.push({
+                dishId:data.data().dishId,
+                quantity:data.data().quantity,
+                restaurantId:data.data().restaurantId,
+                itemId:data.id
+            });
         })
         return cartItems;
     } catch(err) {
@@ -50,7 +55,6 @@ export const getUserCart = async (uid) => {
 export const getCartItem = async (restId, id) => {
     try {
         let cartRef = await db.collection("restaurants").doc(restId).collection("dishes").doc(id).get();
-        console.log(cartRef.data());
         let data = cartRef.data();
         let price = parseInt(cartRef.data().price);
         let discount = parseInt(cartRef.data().discount);
@@ -65,10 +69,20 @@ export const getCartItem = async (restId, id) => {
 
 export const deleteCartItem = async (userid, id) => {
     try {
+        console.log(userid,id);
         await db.collection("users").doc(userid).collection("cart").doc(id).delete()
         .then(data => console.log("deleted", data))
     } catch(err) {
         console.log(err.message);
         throw err;
+    }
+}
+
+export const placeOrder = async(userId,shippingDetail,items)=>{
+    try {
+        items.sort((a,b)=>a.restaurantId - b.restaurantId)
+        
+    } catch (error) {
+        console.log(error.message);
     }
 }
