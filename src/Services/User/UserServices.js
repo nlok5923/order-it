@@ -98,13 +98,15 @@ export const placeOrder = async(userId,shippingDetail,items)=>{
             orderItem,
             date,
             shippingDetail,
-            restaurantId
+            restaurantId,
+            status:"pending"
         })
         await db.collection("restaurants").doc(restaurantId).collection("orders").doc(data.id).set({
             userId,
             date,
             shippingDetail,
-            orderItem
+            orderItem,
+            status:"pending"
         })
         for(let item of items){
             await db.collection("users").doc(userId).collection("cart").doc(item.itemId).delete();
