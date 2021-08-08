@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Order It
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Functionality at user side 
+- Home Page For User Which Are Not Logged in.
+![image](https://user-images.githubusercontent.com/56120769/128632780-4346cc6e-423c-4a96-b2e2-a6ef4bdcd01f.png)
 
-## Available Scripts
+- Login/Register Page for general users with google auth
+![image](https://user-images.githubusercontent.com/56120769/128632820-694ecb6f-b79d-48c3-8e10-15d8ac0a5ad5.png)
 
-In the project directory, you can run:
+- Landing page for logged in user
+- ![image](https://user-images.githubusercontent.com/56120084/128632991-3c1100b0-7b69-4991-808f-2857704f1517.png)
 
-### `yarn start`
+- page which fetch result
+- ![image](https://user-images.githubusercontent.com/56120084/128633080-f329ce95-2658-4f8a-a42f-f8df33752dc3.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- User searching dishes using via pincode and keywords or by simple keywords  
+- ![image](https://user-images.githubusercontent.com/56120084/128633096-bfb98283-bfee-4890-8001-360c1fbba529.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- page with restaurant information and dishes order page 
+- ![image](https://user-images.githubusercontent.com/56120084/128633124-877e5ff7-b714-4118-b89d-82f03fafb2ec.png)
 
-### `yarn test`
+- Continuation of above page where user can add dishes to his cart with quantity
+- ![image](https://user-images.githubusercontent.com/56120084/128633138-8358d62c-9b0f-469a-af1a-c720932eae1b.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- user can filter dishes based in it's price
+- ![image](https://user-images.githubusercontent.com/56120084/128633186-a0d52ea0-8691-4698-880b-941ae75c26d1.png)
 
-### `yarn build`
+- user will receive a nice indication on adding dishes to cart
+- ![image](https://user-images.githubusercontent.com/56120084/128633211-04acaeff-13c0-4aed-88c2-526e1d6fcb47.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Navbar keep hold of multiple functionality for user like my order, cart and logout
+- ![image](https://user-images.githubusercontent.com/56120084/128633243-a55204e1-0c33-445f-991e-50d7f72486e3.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- User cart where he can manage the items 
+- ![image](https://user-images.githubusercontent.com/56120084/128633359-27a4616d-f470-4156-aacd-8c0d58a81bab.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Once confirmed the dishes he can proceed with shipping details and order confirmation. 
+- ![image](https://user-images.githubusercontent.com/56120084/128633399-a806f3f5-d530-458a-af58-c1ad11874a38.png)
 
-### `yarn eject`
+- After invoicing user can see the order status at My orders also the order status will be updated by the restaurant.
+- ![image](https://user-images.githubusercontent.com/56120084/128633424-4bfb96f2-3af2-4c45-834b-ac2549bf9f6d.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Functionality as restaurant side 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Login/Register page for restaurants user with google auth
+![image](https://user-images.githubusercontent.com/56120084/128632959-66c62335-6279-4e36-90c4-fd91937500bb.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Once restaurant authenticated they will land to restaurant dashboard here they can add/delete/update dishes 
+- ![image](https://user-images.githubusercontent.com/56120084/128633489-d0d20016-465f-4238-8800-c1bc5cf93819.png)
 
-## Learn More
+- Restaurant can add dishes here
+- ![image](https://user-images.githubusercontent.com/56120084/128633530-c948e591-10af-4b14-a690-bba3d1fde5f8.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Similarly user can edit dishes by clicking to edit button on dish card the below interface will open for it at `edit-dish` url
+- ![image](https://user-images.githubusercontent.com/56120084/128633551-aea001c1-0993-4239-9ade-9c4e40776338.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
