@@ -25,6 +25,7 @@ const Page = () => {
 
   const [loading, setLoading] = useState(true);
   const [dishes, setDishes] = useState([]);
+  const [allDish,setAllDish] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState([]);
   const [restaurantImages, setRestaurantImages] = useState([]);
   const { id } = useParams();
@@ -35,6 +36,7 @@ const Page = () => {
   const fetchData = async()=>{
     let data = await getRestaurantDishes(id) 
     setDishes(data);
+    setAllDish(data);
     data = await getRestaurantInformation(id)
     setRestaurantInfo(data);
     let images = await getRestaurantImagesUrl(id);
@@ -47,7 +49,6 @@ const Page = () => {
       let restId = id;
       setAdding(true);
       let resp = await addDishToCart(user.uid, Dishid, quantity, restId);
-      console.log(user.uid, Dishid, quantity, restId)
         if(resp)
         toast("Added in cart");
         else 
@@ -57,7 +58,20 @@ const Page = () => {
       toast("please Login in first Sir");
     }
   };
-
+  const minv = (a,b)=>{
+    return a>b?b:a;
+  }
+  const handleFilter = ()=>{
+    let v1 = document.getElementById("from").value;
+    let v2 = document.getElementById("to").value;
+    if(!v1 || v1<0){ v1 = 0;}
+    if(!v2 || v2<0){v2 = 10000;}
+    let tem = minv(v1,v2);
+    v2 = parseInt(v1) + parseInt(v2) - parseInt(tem);
+    v1 = parseInt(tem);
+    let temDish = allDish.filter((dish)=>((parseInt(dish.discountedPrice) >= v1) && (parseInt(dish.discountedPrice) <=v2)));
+    setDishes(temDish);
+  }
 
   useEffect(() => {
     fetchData();
@@ -100,12 +114,12 @@ const Page = () => {
             <Header as="h2">Recommended</Header>
             <Form>
               <Form.Field>
-                 <input type="number" placeholder="from" />
+                 <input id="from" type="number" placeholder="from" />
               </Form.Field>
               <Form.Field>
-                 <input type="number" placeholder="to" />
+                 <input id="to" type="number" placeholder="to" />
               </Form.Field>
-              <Button floated="right" content="Filter" basic />
+              <Button onClick={handleFilter} floated="right" content="Filter" basic />
             </Form>
             {dishes.map((data, index) => <DishCard info={data} addDishes={addDishes} />)}
           </Segment>
