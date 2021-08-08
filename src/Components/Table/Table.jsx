@@ -16,7 +16,7 @@ const CartItems = (props) => {
             <Table.HeaderCell>Name</Table.HeaderCell>
             <Table.HeaderCell>Price</Table.HeaderCell>
             <Table.HeaderCell>discount</Table.HeaderCell>
-            <Table.HeaderCell>Description</Table.HeaderCell>
+            <Table.HeaderCell>Discounted price</Table.HeaderCell>
             <Table.HeaderCell>Quantity</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -26,7 +26,7 @@ const CartItems = (props) => {
               <Table.Cell>{element.data.dishName}</Table.Cell>
               <Table.Cell>Rs {element.data.price}</Table.Cell>
               <Table.Cell>{element.data.discount}%</Table.Cell>
-              <Table.Cell>{element.data.description}</Table.Cell>
+              <Table.Cell>Rs {element.data.discountedPrice}</Table.Cell>
               <Table.Cell>
                 {element.quantity}
               </Table.Cell>
@@ -39,7 +39,7 @@ const CartItems = (props) => {
     :
     <div>
       <h2>From {props.info[0].data.restaurantName}</h2>
-      <Table celled>
+      <Table celled >
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Name</Table.HeaderCell>
