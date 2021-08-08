@@ -57,7 +57,6 @@ const EditDish = (props) => {
 
     useEffect(() => {
         const dish = props.location.data;
-        console.log(dish);
         if (!dish) {
             setredirect("/restaurant");
         } else {

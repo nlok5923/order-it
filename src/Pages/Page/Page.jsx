@@ -17,8 +17,6 @@ const properties = {
   pauseOnHover: true,
 };
 
-const images = ["images/pizza.jpg", "images/pizza.jpg", "images/pizza.jpg", "images/pizza.jpg", "images/pizza.jpg"]
-
 const Page = () => {
 
   const [loading, setLoading] = useState(true);
@@ -32,8 +30,7 @@ const Page = () => {
     setDishes(data);
     data = await getRestaurantInformation(id)
     setRestaurantInfo(data);
-    console.log(restaurantInfo);
-    let images = await getRestaurantImagesUrl(id)
+    let images = await getRestaurantImagesUrl(id);
     setRestaurantImages(images);
     setLoading(false);
   }
@@ -50,7 +47,7 @@ const Page = () => {
           <Segment>
             <div className="slide-container">
               <Slide {...properties}>
-                {images.map((data, index) => {
+                {restaurantImages.map((data, index) => {
                   return (
                     <div className="each-slide">
                       <img src={data} alt="food" className="food-slider-image" />
