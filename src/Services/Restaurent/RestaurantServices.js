@@ -21,23 +21,17 @@ export const getRestaurants = async() => {
                 pincode: doc.data().pincode,
                 address: doc.data().address,
                 phone: doc.data().phone,
-                restaurantId: doc.id
+                restaurantId: doc.id,
+                fileNames:doc.data().fileNames
                 // description: data.doc().description
             })
         })
-        for (let i = 0; i < data.length; i++) {
-            // let imageUrl = await getImageUrl("restaurants", data[i].fileName);
-            // data[i].firebaseImage = imageUrl;
+        for (let j = 0; j < data.length; j++) {
             let imageUrl = [];
-            if (data[i].fileNames) {
-                data[i].fileNames.map(async name => {
-                    let image = await getImageUrl("restaurants", name);
-                    imageUrl.push(image)
-                    console.log("this is alled ")
-                    console.log(image);
-                });
-                data[i].firebaseImages = [...imageUrl];
-            }
+            let fileNames = data[j].fileNames;
+            let image = await getImageUrl("restaurants",fileNames[0]);
+            imageUrl.push(image);
+            data[j].firebaseImages = [...imageUrl];
         }
         return data;
     } catch (error) {
@@ -98,6 +92,7 @@ export const searchRestaurants =async (pinCode,searchText)=>{
         }
         if(searchText==="no"){
             ref.forEach((doc) => {
+                console.log(doc);
                 data.push({
                     RestaurantName: doc.data().RestaurantName,
                     country: doc.data().country,
@@ -105,7 +100,8 @@ export const searchRestaurants =async (pinCode,searchText)=>{
                     pincode: doc.data().pincode,
                     address: doc.data().address,
                     phone: doc.data().phone,
-                    restaurantId: doc.id
+                    restaurantId: doc.id,
+                    fileNames:doc.data().fileNames
                     // description: data.doc().description
                 })
             })
@@ -118,7 +114,7 @@ export const searchRestaurants =async (pinCode,searchText)=>{
                     searchKeyWord:doc.data().searchWord
                 })
             })
-            let presentRes = [],notPresentRes = [];
+            let presentRes = [],notPresentRes = []; 
             for(let restaurant of restaurants){
                 let flag = true;
                 for(let word of words){
@@ -152,7 +148,7 @@ export const searchRestaurants =async (pinCode,searchText)=>{
                 }
             }
             for(let id of presentRes){
-                let resRef = await db.collection("restaurant").doc(id).get();
+                let resRef = await db.collection("restaurants").doc(id).get();
                 data.push({
                     RestaurantName: resRef.data().RestaurantName,
                     country: resRef.data().country,
@@ -160,11 +156,20 @@ export const searchRestaurants =async (pinCode,searchText)=>{
                     pincode: resRef.data().pincode,
                     address: resRef.data().address,
                     phone: resRef.data().phone,
-                    restaurantId: resRef.id
+                    restaurantId: resRef.id,
+                    fileNames:resRef.data().fileNames
                     // description: data.resRef().description
                 })
             }
         }
+        for (let j = 0; j < data.length; j++) {
+            let imageUrl = [];
+            let fileNames = data[j].fileNames;
+            let image = await getImageUrl("restaurants",fileNames[0]);
+            imageUrl.push(image);
+            data[j].firebaseImages = [...imageUrl];
+        }
+        return data;
     } catch (error) {
         console.log(error.message);
     }
