@@ -70,23 +70,6 @@ const Page = () => {
         <Container>
           <Toaster />
           <div className="filter">
-            <h3> Filter your search </h3>
-            <p> Rs 10 - Rs 100</p>
-            <p> Rs 101 - Rs 250</p>
-            <p> Rs 251 - Rs 500</p>
-            <p> Rs 501 - Rs 1000</p>
-            <Form>
-              <Form.Field>
-                <input type="text" name="from" placeholder="from" />
-              </Form.Field>
-            </Form>
-            <Form>
-              <Form.Field>
-              <input type="text" name="to" placeholder="to" style={{ marginTop: "5%" }} />
-              </Form.Field>
-            </Form>
-            <Button className="filter-btn" style={{ marginTop: "5%" }} basic color="green" content="filter" />
-            <div className="cart-loader">
             {adding ? 
             <CartLoader 
              type="Puff"
@@ -95,7 +78,6 @@ const Page = () => {
              width={50}
             />: null }
             </div>
-          </div>
           <Segment>
             <div className="slide-container">
               <Slide {...properties}>
@@ -116,6 +98,14 @@ const Page = () => {
             </Header>
             <Divider />
             <Header as="h2">Recommended</Header>
+            <Form>
+              <Form.Field>
+                 <input type="number" placeholder="from" />
+              </Form.Field>
+              <Form.Field>
+                 <input type="number" placeholder="to" />
+              </Form.Field>
+            </Form>
             {dishes.map((data, index) => <DishCard info={data} addDishes={addDishes} />)}
           </Segment>
         </Container>
